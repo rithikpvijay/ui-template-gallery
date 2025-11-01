@@ -1,11 +1,27 @@
-<script setup lang="ts"></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <main-layout></main-layout>
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+import MainLayout from './layout/MainLayout.vue'
+</script>
+
+<style>
+:root {
+  --color-primary: #fff;
+  --color-secondary: #f2f2f2;
+
+  --shadow-outer: 0 4px 8px rgba(0, 0, 0, 0.05);
+  --shadow-inner: 0 0 4px rgba(0, 0, 0, 0.15);
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+</style>
