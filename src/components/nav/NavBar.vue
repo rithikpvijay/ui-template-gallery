@@ -31,8 +31,13 @@ import BaseSearchBar from '../UI/BaseSearchBar.vue'
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 .nav-container {
   padding: 12px 10px;
+=======
+.container {
+  padding: 12px 10px 13.6px 10px;
+>>>>>>> 62558fa (feat(side-bar): add side bar)
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -93,6 +98,35 @@ import BaseSearchBar from '../UI/BaseSearchBar.vue'
 
 .nav-icon:hover {
   background-color: var(--color-onhover);
+}
+
+.image-container {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #f1f1f1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.nav-utilities div {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.image-container:hover {
+  border-color: var(--color-blue);
+}
+
+.image {
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 50%;
 }
 
 .search-bar {

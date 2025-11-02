@@ -1,9 +1,17 @@
 <template>
   <div class="sidebar">
     <div class="sidebar-content">
+<<<<<<< HEAD
       <div v-for="item in items" :key="item.title">
         <list-item :item="item"></list-item>
       </div>
+=======
+      <list-item :item="item1"></list-item>
+      <list-item :item="item2"></list-item>
+      <list-item :item="item3"></list-item>
+      <list-item :item="item4"></list-item>
+      <list-item :item="item5"></list-item>
+>>>>>>> 62558fa (feat(side-bar): add side bar)
     </div>
 
     <div class="footer">
@@ -16,6 +24,7 @@
 </template>
 
 <script setup lang="ts">
+<<<<<<< HEAD
 import type { SideBarItem } from '@/types/SideBarItem'
 import ListItem from './ListItem.vue'
 
@@ -46,6 +55,45 @@ const items: SideBarItem[] = [
     icon: 'iconamoon:box-fill',
   },
 ]
+=======
+import ListItem from './ListItem.vue'
+
+interface Item {
+  title: string
+  lists: string[]
+  icon: string
+}
+
+const item1: Item = {
+  title: 'CRM',
+  lists: ['Contact List', 'Contact Details'],
+  icon: 'mdi:user',
+}
+
+const item2: Item = {
+  title: 'Planning',
+  lists: ['Task List', 'Task Details', 'Scheduler'],
+  icon: 'mdi:calendar',
+}
+
+const item3: Item = {
+  title: 'Analytics',
+  lists: ['Dashboard', 'Sales Analysis', 'Geography'],
+  icon: 'material-symbols:analytics-outline-sharp',
+}
+
+const item4: Item = {
+  title: 'Authentication',
+  lists: ['Sign In Form', 'Register Form', 'Reset Password Form'],
+  icon: 'mdi:user-box',
+}
+
+const item5: Item = {
+  title: 'Common',
+  lists: ['User Profile'],
+  icon: 'iconamoon:box-fill',
+}
+>>>>>>> 62558fa (feat(side-bar): add side bar)
 
 const date = new Date().getFullYear()
 </script>
