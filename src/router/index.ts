@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
 import ContactDetails from '@/pages/Contact/ContactDetails.vue'
 import ContactPage from '@/pages/Contact/ContactPage.vue'
 import { RoutePath } from '@/types/RoutePath'
