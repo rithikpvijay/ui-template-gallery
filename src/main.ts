@@ -1,11 +1,15 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import { createPinia } from 'pinia'
 import router from './router'
+import App from './App.vue'
 import BaseIcon from './components/UI/BaseIcon.vue'
 import BaseSearchBar from './components/UI/BaseSearchBar.vue'
 import BaseMenu from './components/UI/BaseMenu.vue'
 
 const app = createApp(App)
+const pinia = createPinia()
+
+app.use(pinia)
 
 app.use(router)
 
