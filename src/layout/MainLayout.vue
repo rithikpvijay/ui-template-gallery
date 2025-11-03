@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import NavBar from '@/components/nav/NavBar.vue'
 import SideBar from '@/components/sidebar/SideBar.vue'
-import MainApp from '@/components/MainApp.vue'
+import MainApp from '@/components/main/MainApp.vue'
 </script>
 
 <style scoped>

@@ -128,6 +128,6 @@ function itemLeave(el: Element) {
 }
 
 .sub-heading p.active {
-  background-color: var(--color-list-active);
+  background-color: var(--color-active);
 }
 </style>
