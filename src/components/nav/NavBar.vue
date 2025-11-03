@@ -31,13 +31,8 @@ import BaseSearchBar from '../UI/BaseSearchBar.vue'
 </script>
 
 <style scoped>
-<<<<<<< HEAD
 .nav-container {
   padding: 12px 10px;
-=======
-.container {
-  padding: 12px 10px 13.6px 10px;
->>>>>>> 62558fa (feat(side-bar): add side bar)
   display: flex;
   align-items: center;
   justify-content: space-between;

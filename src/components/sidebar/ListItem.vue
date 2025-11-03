@@ -167,9 +167,13 @@ function leave(el: Element) {
 
 .sub-heading p.active {
 <<<<<<< HEAD
+<<<<<<< HEAD
   background-color: var(--color-active);
 =======
   background-color: var(--color-list-active);
 >>>>>>> 62558fa (feat(side-bar): add side bar)
+=======
+  background-color: var(--color-active);
+>>>>>>> 0b8eb4d (feat(main) : add main content)
 }
 </style>
