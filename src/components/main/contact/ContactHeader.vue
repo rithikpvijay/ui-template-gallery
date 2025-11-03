@@ -1,11 +1,11 @@
 <template>
   <div class="header-container">
-    <div class="main-header-left">
+    <div class="contact-header-left">
       <p class="contacts-text">Contacts</p>
-      <main-header-filter></main-header-filter>
+      <contact-header-filter></contact-header-filter>
     </div>
 
-    <div class="main-header-right">
+    <div class="contact-header-right">
       <div class="contact">
         <Icon icon="ic:baseline-plus" width="16" height="16" />
         <p>Add Contact</p>
@@ -15,7 +15,7 @@
 
       <div class="separator"></div>
 
-      <main-header-export></main-header-export>
+      <contact-header-export></contact-header-export>
 
       <div class="separator"></div>
 
@@ -28,8 +28,8 @@
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import MainHeaderFilter from '@/components/main/MainHeaderFilter.vue'
-import MainHeaderExport from '@/components/main/MainHeaderExport.vue'
+import ContactHeaderFilter from '@/components/main/contact/ContactHeaderFilter.vue'
+import ContactHeaderExport from '@/components/main/contact/ContactHeaderExport.vue'
 </script>
 
 <style scoped>
@@ -40,7 +40,7 @@ import MainHeaderExport from '@/components/main/MainHeaderExport.vue'
   justify-content: space-between;
 }
 
-.main-header-left {
+.contact-header-left {
   display: flex;
   align-items: center;
   gap: 30px;
@@ -90,7 +90,7 @@ svg {
   font-size: 14px;
 }
 
-.main-header-right {
+.contact-header-right {
   display: flex;
   align-items: center;
   gap: 6px;
