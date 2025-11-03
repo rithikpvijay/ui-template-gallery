@@ -1,12 +1,12 @@
 <template>
-  <div class="main-content-container">
-    <div class="main-table">
-      <main-table></main-table>
+  <div class="contact-content-container">
+    <div class="contact-table">
+      <contact-table></contact-table>
     </div>
 
-    <div class="main-rows">
-      <div v-for="user in users" :key="user.id" class="main-row">
-        <main-rows :user="user"></main-rows>
+    <div class="contact-rows">
+      <div v-for="user in users" :key="user.id" class="contact-row">
+        <contact-rows :user="user"></contact-rows>
       </div>
     </div>
   </div>
@@ -14,8 +14,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import MainTable from '@/components/main/MainTable.vue'
-import MainRows from '@/components/main/MainRows.vue'
+import ContactTable from '@/components/main/contact/ContactTable.vue'
+import ContactRows from '@/components/main/contact/ContactRows.vue'
 import type { User } from '@/types/User'
 
 const users = ref<User[] | null>(null)
@@ -43,7 +43,7 @@ getUsers()
 </script>
 
 <style scoped>
-.main-content-container {
+.contact-content-container {
   border: 1px solid var(--color-border);
   border-bottom: none;
   display: flex;
@@ -51,8 +51,8 @@ getUsers()
   overflow: hidden;
 }
 
-.main-table,
-.main-row {
+.contact-table,
+.contact-row {
   display: grid;
   grid-template-columns: 0.1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   font-size: 13px;
@@ -62,7 +62,7 @@ getUsers()
   cursor: pointer;
 }
 
-.main-rows {
+.contact-rows {
   flex: 1;
   overflow-y: scroll;
 }
