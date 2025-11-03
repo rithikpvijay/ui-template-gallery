@@ -1,0 +1,252 @@
+[
+  {
+    "id": 1,
+    "name": "Amelia Harper",
+    "designation": "Network Admin",
+    "company": "ACME",
+    "status": "Salaried",
+    "mentor": "John Harper",
+    "phone": "(213) 555-4431",
+    "email": "amelia@acme.com"
+  },
+  {
+    "id": 2,
+    "name": "Liam Johnson",
+    "designation": "Software Engineer",
+    "company": "TechNova",
+    "status": "Commission",
+    "mentor": "Sara Klein",
+    "phone": "(312) 555-7812",
+    "email": "liam@tnova.com"
+  },
+  {
+    "id": 3,
+    "name": "Sophia Patel",
+    "designation": "Data Analyst",
+    "company": "FinEdge",
+    "status": "Salaried",
+    "mentor": "Mark Benson",
+    "phone": "(415) 555-9821",
+    "email": "sophia@finedge.com"
+  },
+  {
+    "id": 4,
+    "name": "Ethan Chen",
+    "designation": "Product Designer",
+    "company": "PixelForge",
+    "status": "Terminated",
+    "mentor": "Mia Liu",
+    "phone": "(646) 555-2341",
+    "email": "ethan@pixelfg.com"
+  },
+  {
+    "id": 5,
+    "name": "Olivia Davis",
+    "designation": "HR Manager",
+    "company": "PeopleFirst",
+    "status": "Salaried",
+    "mentor": "Jason Hill",
+    "phone": "(202) 555-6710",
+    "email": "olivia@pfirst.com"
+  },
+  {
+    "id": 6,
+    "name": "Noah Brown",
+    "designation": "Marketing Lead",
+    "company": "BrightEdge",
+    "status": "Commission",
+    "mentor": "Emily Clark",
+    "phone": "(305) 555-2288",
+    "email": "noah@bedge.com"
+  },
+  {
+    "id": 7,
+    "name": "Ava Wilson",
+    "designation": "UX Researcher",
+    "company": "UserFlow",
+    "status": "Salaried",
+    "mentor": "Nathan Price",
+    "phone": "(503) 555-8720",
+    "email": "ava@uflow.com"
+  },
+  {
+    "id": 8,
+    "name": "Lucas Anderson",
+    "designation": "System Engineer",
+    "company": "CloudSync",
+    "status": "Terminated",
+    "mentor": "Kevin Lee",
+    "phone": "(213) 555-4092",
+    "email": "lucas@csync.com"
+  },
+  {
+    "id": 9,
+    "name": "Mia Rodriguez",
+    "designation": "QA Tester",
+    "company": "SoftLab",
+    "status": "Salaried",
+    "mentor": "Olivia Scott",
+    "phone": "(917) 555-6834",
+    "email": "mia@slab.com"
+  },
+  {
+    "id": 10,
+    "name": "James Nguyen",
+    "designation": "Project Manager",
+    "company": "BuildRight",
+    "status": "Commission",
+    "mentor": "Robert Mills",
+    "phone": "(408) 555-7400",
+    "email": "james@bright.com"
+  },
+  {
+    "id": 11,
+    "name": "Emma Thompson",
+    "designation": "Business Analyst",
+    "company": "InsightCo",
+    "status": "Terminated",
+    "mentor": "Sarah Knight",
+    "phone": "(424) 555-3309",
+    "email": "emma@insco.com"
+  },
+  {
+    "id": 12,
+    "name": "Benjamin Moore",
+    "designation": "Frontend Developer",
+    "company": "WebWorks",
+    "status": "Salaried",
+    "mentor": "Alex Ray",
+    "phone": "(602) 555-9312",
+    "email": "ben@wworks.com"
+  },
+  {
+    "id": 13,
+    "name": "Charlotte Garcia",
+    "designation": "Graphic Designer",
+    "company": "CreativeHub",
+    "status": "Commission",
+    "mentor": "Daniel Perez",
+    "phone": "(714) 555-5411",
+    "email": "char@chub.com"
+  },
+  {
+    "id": 14,
+    "name": "Henry White",
+    "designation": "Security Specialist",
+    "company": "SafeNet",
+    "status": "Salaried",
+    "mentor": "Lauren Gray",
+    "phone": "(646) 555-8892",
+    "email": "henry@snet.com"
+  },
+  {
+    "id": 15,
+    "name": "Ella Kim",
+    "designation": "Database Admin",
+    "company": "DataCore",
+    "status": "Terminated",
+    "mentor": "Victor Young",
+    "phone": "(718) 555-6034",
+    "email": "ella@dcore.com"
+  },
+  {
+    "id": 16,
+    "name": "William Martinez",
+    "designation": "DevOps Engineer",
+    "company": "CloudPro",
+    "status": "Commission",
+    "mentor": "Chris Lopez",
+    "phone": "(212) 555-1820",
+    "email": "will@cpro.com"
+  },
+  {
+    "id": 17,
+    "name": "Harper Lee",
+    "designation": "Technical Writer",
+    "company": "DocuBase",
+    "status": "Salaried",
+    "mentor": "Emma Lewis",
+    "phone": "(510) 555-6677",
+    "email": "harper@dbase.com"
+  },
+  {
+    "id": 18,
+    "name": "Jack Turner",
+    "designation": "IT Support",
+    "company": "FixRight",
+    "status": "Commission",
+    "mentor": "George Cooper",
+    "phone": "(214) 555-3499",
+    "email": "jack@fixr.com"
+  },
+  {
+    "id": 19,
+    "name": "Avery Scott",
+    "designation": "Accountant",
+    "company": "Numera",
+    "status": "Salaried",
+    "mentor": "Ella Brooks",
+    "phone": "(336) 555-1287",
+    "email": "avery@numera.com"
+  },
+  {
+    "id": 20,
+    "name": "Daniel Evans",
+    "designation": "Operations Manager",
+    "company": "FlowSync",
+    "status": "Terminated",
+    "mentor": "Mason Hall",
+    "phone": "(702) 555-7730",
+    "email": "dan@flowsync.com"
+  },
+  {
+    "id": 21,
+    "name": "Luna Perez",
+    "designation": "UI Designer",
+    "company": "Visionary",
+    "status": "Salaried",
+    "mentor": "Amelia Ross",
+    "phone": "(917) 555-1055",
+    "email": "luna@vision.com"
+  },
+  {
+    "id": 22,
+    "name": "Elijah Rivera",
+    "designation": "Backend Developer",
+    "company": "CodeFlow",
+    "status": "Commission",
+    "mentor": "Jacob Ortiz",
+    "phone": "(312) 555-9904",
+    "email": "eli@cflow.com"
+  },
+  {
+    "id": 23,
+    "name": "Isabella Morgan",
+    "designation": "SEO Specialist",
+    "company": "Rankly",
+    "status": "Salaried",
+    "mentor": "Liam Carter",
+    "phone": "(415) 555-2468",
+    "email": "isa@rankly.com"
+  },
+  {
+    "id": 24,
+    "name": "Logan Bell",
+    "designation": "Content Strategist",
+    "company": "WordSmith",
+    "status": "Terminated",
+    "mentor": "Sophie Lane",
+    "phone": "(503) 555-8272",
+    "email": "logan@wsmith.com"
+  },
+  {
+    "id": 25,
+    "name": "Grace Adams",
+    "designation": "Recruiter",
+    "company": "TalentBridge",
+    "status": "Commission",
+    "mentor": "Olivia Price",
+    "phone": "(602) 555-3741",
+    "email": "grace@tbridge.com"
+  }
+]
