@@ -14,9 +14,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { User } from '@/types/User'
 import ContactTable from '@/components/main/contact/ContactTable.vue'
 import ContactRows from '@/components/main/contact/ContactRows.vue'
-import type { User } from '@/types/User'
 
 const users = ref<User[] | null>(null)
 const isLoading = ref(false)
