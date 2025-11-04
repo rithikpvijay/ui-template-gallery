@@ -6,7 +6,7 @@
 
     <div class="contact-rows" v-if="filteredUsers.length && !isLoading">
       <router-link
-        :to="`/contact-list/${user.id}`"
+        :to="routeBuilder.contactDetails(user.id)"
         v-for="user in filteredUsers"
         :key="user.id"
         class="contact-row"
@@ -22,6 +22,7 @@ import { storeToRefs } from 'pinia'
 import ContactTable from '@/components/main/contact/ContactTable.vue'
 import ContactRows from '@/components/main/contact/ContactRows.vue'
 import { useUserStore } from '@/store/user'
+import { routeBuilder } from '@/utility/routeBuilder'
 
 const store = useUserStore()
 
