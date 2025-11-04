@@ -1,12 +1,19 @@
 <template>
   <div class="search-bar">
     <Icon icon="material-symbols:search" width="16" height="16" class="icon" />
-    <input type="text" :placeholder="placeholder" :style="{ width, fontSize }" />
+    <input
+      type="text"
+      :placeholder="placeholder"
+      :style="{ width, fontSize }"
+      v-model.trim="searchQuery"
+      @input="handleInput"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
 
 interface Props {
   placeholder: string
@@ -14,10 +21,18 @@ interface Props {
   fontSize?: string
 }
 
+const emit = defineEmits(['search'])
+
+const searchQuery = ref<string>('')
+
 withDefaults(defineProps<Props>(), {
   width: '100%',
   fontSize: '12px',
 })
+
+function handleInput() {
+  emit('search', searchQuery.value)
+}
 </script>
 
 <style scoped>

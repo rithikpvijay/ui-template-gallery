@@ -4,8 +4,8 @@
       <contact-table></contact-table>
     </div>
 
-    <div class="contact-rows" v-if="users.length && !isLoading">
-      <div v-for="user in users" :key="user.id" class="contact-row">
+    <div class="contact-rows" v-if="filteredUsers.length && !isLoading">
+      <div v-for="user in filteredUsers" :key="user.id" class="contact-row">
         <contact-rows :user="user"></contact-rows>
       </div>
     </div>
@@ -20,7 +20,7 @@ import { storeToRefs } from 'pinia'
 
 const store = useUserStore()
 
-const { users, isLoading } = storeToRefs(store)
+const { filteredUsers, isLoading } = storeToRefs(store)
 
 store.fetchUsers()
 </script>

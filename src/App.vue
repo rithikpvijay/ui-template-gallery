@@ -24,6 +24,8 @@ import MainLayout from './layout/MainLayout.vue'
   --color-text: #000000de;
   --color-icon: #0000008a;
   --color-table-content: #00000099;
+  --color-terminated: #de8e8c;
+  --color-salaried: #2eb52c;
 
   --shadow-outer: 0 4px 8px rgba(0, 0, 0, 0.05);
   --shadow-inner: 0 0 4px rgba(0, 0, 0, 0.15);
@@ -47,5 +49,10 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: var(--color-border);
+}
+
+mark {
+  background-color: var(--color-blue);
+  color: var(--color-primary);
 }
 </style>
