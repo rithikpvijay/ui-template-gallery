@@ -64,7 +64,6 @@ function highlightMatch(text: string, query: string | null): string {
   color: var(--color-table-content);
   margin-top: 2px;
 }
-<<<<<<< HEAD
 
 .dot {
   width: 10px;
@@ -102,6 +101,4 @@ function highlightMatch(text: string, query: string | null): string {
 .commission-dot {
   background-color: var(--color-blue);
 }
-=======
->>>>>>> 248ab0a (feat(router): add app routing)
 </style>
