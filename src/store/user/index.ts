@@ -30,6 +30,7 @@ export const useUserStore = defineStore('user', () => {
 
       users.value = await res.json()
       filteredUsers.value = users.value
+      filteredUserByStatus = users.value
     } catch (err) {
       if (err instanceof Error) {
         error.value = err.message
