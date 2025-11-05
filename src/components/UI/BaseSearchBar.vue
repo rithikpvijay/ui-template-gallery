@@ -1,11 +1,8 @@
 <template>
-  <form>
-    <div class="search-bar">
-      <Icon icon="material-symbols:search" width="16" height="16" class="icon" />
-
-      <input type="text" :placeholder="placeholder" />
-    </div>
-  </form>
+  <div class="search-bar">
+    <Icon icon="material-symbols:search" width="16" height="16" class="icon" />
+    <input type="text" :placeholder="placeholder" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -19,8 +16,6 @@ defineProps<Props>()
 <style scoped>
 .search-bar {
   display: inline-flex;
-  /* border-bottom: 1px solid #888; */
-
   position: relative;
 }
 
@@ -34,7 +29,7 @@ input {
 }
 
 input:hover {
-  background-color: var(--color-onhover);
+  background-color: var(--color-search-bar-hover);
   border-bottom: 1px solid #333;
 }
 

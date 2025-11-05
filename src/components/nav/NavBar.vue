@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="nav-container">
     <div class="icon-text">
       <div class="nav-icon">
         <Icon icon="mdi:menu" width="24" height="16" />
@@ -8,37 +8,36 @@
     </div>
 
     <div class="nav-utilities">
-      <div>
-        <div class="search-bar">
-          <base-search-bar placeholder="Search"></base-search-bar>
-        </div>
-        <div class="nav-icon">
-          <Icon icon="material-symbols:dark-mode-outline-rounded" width="20" height="16" />
-        </div>
-        <div class="nav-icon">
-          <Icon icon="mdi:bell-outline" width="20" height="16" />
-        </div>
-        <div class="image-container">
-          <img :src="userImage" alt="user-image" class="image" />
-        </div>
+      <div class="search-bar">
+        <base-search-bar placeholder="Search"></base-search-bar>
+      </div>
+      <div class="nav-icon">
+        <Icon icon="material-symbols:dark-mode-outline-rounded" width="20" height="16" />
+      </div>
+      <div class="nav-icon">
+        <Icon icon="mdi:bell-outline" width="20" height="16" />
+      </div>
+      <div class="image-container">
+        <img :src="userImage" alt="user-image" class="image" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Icon } from '@iconify/vue'
 import userImage from '@/assets/user-image.png'
 import BaseSearchBar from '../UI/BaseSearchBar.vue'
-import { Icon } from '@iconify/vue'
 </script>
 
 <style scoped>
-.container {
+.nav-container {
   padding: 12px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .icon {
   height: 12px;
 }
@@ -75,10 +74,10 @@ import { Icon } from '@iconify/vue'
   object-position: top;
   border-radius: 50%;
 }
-.nav-utilities div {
+
+.nav-utilities {
   display: flex;
   align-items: center;
-
   margin-right: 8px;
 }
 
