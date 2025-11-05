@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper" ref="menuRef">
-    <div class="title-container" @click.stop="handleMenuToggle" :class="{ active: isOpen }">
+    <div class="title-container" @click="handleMenuToggle" :class="{ active: isOpen }">
       <slot name="title" />
     </div>
     <Transition name="fade">
