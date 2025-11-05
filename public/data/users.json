@@ -359,7 +359,7 @@
     "designation": "Database Admin",
     "company": "Synergy",
     "status": "Salaried",
-    "assiimport ContactPage from '@/pages/Contact/ContactPage.vue'gnedTo": "Kevin Hart",
+    "assignedTo": "Kevin Hart",
     "phone": "(903) 555-5123",
     "email": "mmorg@s.io",
     "address": "24 Sunview",
