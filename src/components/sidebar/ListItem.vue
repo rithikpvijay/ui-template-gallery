@@ -16,10 +16,10 @@
       </div>
     </div>
     <Transition
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @before-leave="beforeLeave"
-      @leave="leave"
+      @before-enter="beforeItemEnter"
+      @enter="itemEnter"
+      @before-leave="beforeItemLeave"
+      @leave="itemLeave"
     >
       <div class="sub-heading" v-if="isOpen">
         <p v-for="item in lists" :key="item">{{ item }}</p>
@@ -50,24 +50,24 @@ function handleClick() {
   isOpen.value = !isOpen.value
 }
 
-function beforeEnter(el: Element) {
+function beforeItemEnter(el: Element) {
   const htmlEl = el as HTMLElement
   htmlEl.style.height = '0'
 }
 
-function enter(el: Element) {
+function itemEnter(el: Element) {
   const htmlEl = el as HTMLElement
   const height = htmlEl.scrollHeight + 'px'
   htmlEl.style.transition = 'height 0.3s ease-out'
   htmlEl.style.height = height
 }
 
-function beforeLeave(el: Element) {
+function beforeItemLeave(el: Element) {
   const htmlEl = el as HTMLElement
   htmlEl.style.height = htmlEl.scrollHeight + 'px'
 }
 
-function leave(el: Element) {
+function itemLeave(el: Element) {
   const htmlEl = el as HTMLElement
   htmlEl.style.transition = 'height 0.3s ease-in'
   htmlEl.style.height = '0'

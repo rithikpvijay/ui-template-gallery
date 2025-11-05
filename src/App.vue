@@ -18,6 +18,7 @@ import MainLayout from './layout/MainLayout.vue'
   --color-heading-hover: #7a7a7a1f;
   --color-list-active: #0000001f;
   --color-footer-text: #0000009b;
+
   --shadow-outer: 0 4px 8px rgba(0, 0, 0, 0.05);
   --shadow-inner: 0 0 4px rgba(0, 0, 0, 0.15);
 }
@@ -33,7 +34,6 @@ body {
 }
 ::-webkit-scrollbar {
   width: 4px;
-  /* height: 6px; */
 }
 
 ::-webkit-scrollbar-thumb {
