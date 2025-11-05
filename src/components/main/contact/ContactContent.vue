@@ -13,10 +13,10 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/store/user'
 import ContactTable from '@/components/main/contact/ContactTable.vue'
 import ContactRows from '@/components/main/contact/ContactRows.vue'
-import { useUserStore } from '@/store/user'
-import { storeToRefs } from 'pinia'
 
 const store = useUserStore()
 
@@ -32,6 +32,7 @@ store.fetchUsers()
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: calc(100vh - 144px);
 }
 
 .contact-table,
