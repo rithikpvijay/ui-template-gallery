@@ -13,7 +13,6 @@
       <template #trigger>
         <Icon icon="tabler:filter-2" width="16" height="16" />
       </template>
-
       <template #filter-menu>
         <div v-for="(name, i) in getUsersProps[index]?.value" :key="i">
           <input type="checkbox" class="check-box" />
