@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { User } from '@/types/User'
 import { API_USERS } from '@/types/UsersApi'
+import type { User } from '@/types/User'
 import type { UserData } from '@/types/UserData'
 
 export const useUserStore = defineStore('user', () => {
