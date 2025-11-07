@@ -34,20 +34,26 @@ export const useUserStore = defineStore('user', () => {
     return [...new Set(filteredUsers.value.map((user) => user.email))]
   })
 
+  const getUserById = computed(() => {
+    return (id: number) => users.value.find((user) => user.id === id)
+  })
+
   async function fetchUsers() {
     try {
       isLoading.value = true
 
       error.value = null
 
-      const res = await fetch('data/users.json')
+      const res = await fetch('/data/users.json')
       if (!res.ok) throw new Error('Something went wrong')
-
       users.value = await res.json()
       filteredUsers.value = users.value
       filteredUserByStatus = users.value
     } catch (err) {
-      if (err instanceof Error) error.value = err.message
+      if (err instanceof Error) {
+        error.value = err.message
+        console.error(err.message)
+      }
     } finally {
       isLoading.value = false
     }
@@ -80,11 +86,17 @@ export const useUserStore = defineStore('user', () => {
     )
   }
 
+  function updateUser(id: number, value: Partial<User>) {
+    const user = users.value.find((user) => user.id === id)
+    if (user) Object.assign(user, value)
+  }
+
   return {
     users,
     isLoading,
     error,
     fetchUsers,
+    updateUser,
     filterUserByStatus,
     filterUserByQuery,
     filteredUsers,
@@ -95,5 +107,6 @@ export const useUserStore = defineStore('user', () => {
     getUsersEmail,
     getUsersPhone,
     getUsersStatus,
+    getUserById,
   }
 })
