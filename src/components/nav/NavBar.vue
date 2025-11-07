@@ -63,7 +63,7 @@ import BaseSearchBar from '../UI/BaseSearchBar.vue'
 }
 
 .nav-icon:hover {
-  background-color: var(--color-onhover);
+  background-color: var(--color-search-bar-hover);
 }
 
 .image-container {

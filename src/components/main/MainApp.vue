@@ -9,5 +9,6 @@
 <style scoped>
 .main-container {
   padding: 0 32px;
+  overflow-y: scroll;
 }
 </style>
