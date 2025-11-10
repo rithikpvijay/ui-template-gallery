@@ -1,7 +1,7 @@
 <template>
   <div class="auth-container">
     <div class="auth-box">
-      <base-form>
+      <base-form @submit="handleSignUp">
         <template #title>
           <div>Sign In</div>
         </template>
@@ -9,12 +9,12 @@
         <template #input>
           <div class="auth-form-input">
             <label for="email">Email:*</label>
-            <input type="text" id="email" />
+            <input type="text" id="email" v-model="formValues.email" />
           </div>
 
           <div class="auth-form-input">
             <label for="password">Password</label>
-            <input type="text" id="password" />
+            <input type="password" id="password" v-model="formValues.password" />
           </div>
 
           <div class="auth-form-check-box">
@@ -29,12 +29,47 @@
       <div class="auth-forgot-link">Forgot password?</div>
 
       <auth-providers type="resigter"></auth-providers>
+
+      <Icon icon="line-md:loading-loop" width="96" height="96" class="loading" v-if="isLoading" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { reactive, ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import AuthProviders from './AuthProviders.vue'
+import { useToast } from 'vue-toastification'
+import { useAuthStore } from '@/store/auth'
+import { storeToRefs } from 'pinia'
+
+const toast = useToast()
+const authStore = useAuthStore()
+const { isLoading } = storeToRefs(authStore)
+const isFormValid = ref(true)
+const formValues = reactive({
+  email: '',
+  password: '',
+})
+
+const validateForm = () => {
+  isFormValid.value = true
+
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!pattern.test(formValues.email)) {
+    isFormValid.value = false
+  }
+}
+
+const handleSignUp = () => {
+  validateForm()
+
+  if (!isFormValid.value) {
+    toast.error('Provide a valid email')
+    return
+  }
+  authStore.signIn(formValues.email, formValues.password)
+}
 </script>
 
 <style scoped>
@@ -50,6 +85,7 @@ import AuthProviders from './AuthProviders.vue'
   border-radius: 8px;
   padding: 24px;
   width: 360px;
+  position: relative;
 }
 
 .auth-form-input {
@@ -81,5 +117,13 @@ import AuthProviders from './AuthProviders.vue'
   text-decoration: underline;
   margin-top: 20px;
   text-align: center;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-blue-dark);
 }
 </style>
