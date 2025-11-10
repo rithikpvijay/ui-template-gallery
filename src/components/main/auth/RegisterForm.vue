@@ -81,16 +81,10 @@
         <template #form-btn> Register </template>
       </base-form>
 
-      <<<<<<< HEAD
       <router-link to="/sign-in" class="sign-in">Have an account? Sign In</router-link>
       <auth-providers type="sign-in" />
-      =======
+
       <div class="sign-in">Have an account? Sign In</div>
-
-      <auth-providers type="sign-in"></auth-providers>
-
-      <Icon icon="line-md:loading-loop" width="96" height="96" class="loading" v-if="isLoading" />
-      >>>>>>> 0937bc2 (feat(sign-up): implement user signup with validation and toast notification)
     </div>
   </div>
 </template>
