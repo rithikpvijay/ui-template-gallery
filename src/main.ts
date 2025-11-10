@@ -5,6 +5,7 @@ import App from './App.vue'
 import BaseIcon from './components/UI/BaseIcon.vue'
 import BaseSearchBar from './components/UI/BaseSearchBar.vue'
 import BaseMenu from './components/UI/BaseMenu.vue'
+import BaseForm from './components/UI/BaseForm.vue'
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -18,5 +19,7 @@ app.component('base-icon', BaseIcon)
 app.component('base-search-bar', BaseSearchBar)
 
 app.component('base-menu', BaseMenu)
+
+app.component('base-form', BaseForm)
 
 app.mount('#app')
