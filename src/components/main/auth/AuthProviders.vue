@@ -1,6 +1,6 @@
 <template>
   <div class="auth-cta">
-    <router-link to="/sign-up" class="auth-btn btn-register" v-if="type === 'resigter'">
+    <router-link v-if="type === 'resigter'" :to="RoutePath.SIGN_UP" class="auth-btn btn-register">
       Register
     </router-link>
 
@@ -22,6 +22,8 @@
 <script setup lang="ts">
 import googleLogo from '@/assets/google-logo.webp'
 import microSoftLogo from '@/assets/microsoft-logo.png'
+import { RoutePath } from '@/types/RoutePath'
+import { RouterLink } from 'vue-router'
 
 defineProps<{ type: string }>()
 </script>
