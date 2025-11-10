@@ -89,7 +89,6 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
 import { useAuthStore } from '@/store/auth'
 import AuthProviders from './AuthProviders.vue'
@@ -97,7 +96,6 @@ import AuthProviders from './AuthProviders.vue'
 type Field = keyof typeof showInvalidMessage
 
 const authStore = useAuthStore()
-const { isLoading } = storeToRefs(authStore)
 
 const formValues = reactive({
   email: { value: '', isValid: true },
