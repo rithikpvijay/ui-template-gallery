@@ -14,10 +14,11 @@ import MainLayout from './layout/MainLayout.vue'
   --color-search-bar: #0000000a;
   --color-search-icon: #0000008a;
   --color-blue: #03a9f4;
-  --color-arrow: rgba(0, 0, 0, 0.54);
+  --color-arrow: #0000008a;
   --color-heading-hover: #7a7a7a1f;
   --color-list-active: #0000001f;
   --color-footer-text: #0000009b;
+  --color-image-border: #f1f1f1;
 
   --shadow-outer: 0 4px 8px rgba(0, 0, 0, 0.05);
   --shadow-inner: 0 0 4px rgba(0, 0, 0, 0.15);

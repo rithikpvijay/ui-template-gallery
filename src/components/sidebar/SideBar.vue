@@ -16,38 +16,33 @@
 </template>
 
 <script setup lang="ts">
+import type { SideBarItem } from '@/types/SideBarItem'
 import ListItem from './ListItem.vue'
 
-interface Item {
-  title: string
-  lists: string[]
-  icon: string
-}
-
-const items: Item[] = [
+const items: SideBarItem[] = [
   {
     title: 'CRM',
-    lists: ['Contact List', 'Contact Details'],
+    lists: [{ text: 'Contact List' }, { text: 'Contact Details' }],
     icon: 'mdi:user',
   },
   {
     title: 'Planning',
-    lists: ['Task List', 'Task Details', 'Scheduler'],
+    lists: [{ text: 'Task List' }, { text: 'Task Details' }, { text: 'Scheduler' }],
     icon: 'mdi:calendar',
   },
   {
     title: 'Analytics',
-    lists: ['Dashboard', 'Sales Analysis', 'Geography'],
+    lists: [{ text: 'Dashboard' }, { text: 'Sales Analysis' }, { text: 'Geography' }],
     icon: 'material-symbols:analytics-outline-sharp',
   },
   {
     title: 'Authentication',
-    lists: ['Sign In Form', 'Register Form', 'Reset Password Form'],
+    lists: [{ text: 'Sign In Form' }, { text: 'Register Form' }, { text: 'Reset Password Form' }],
     icon: 'mdi:user-box',
   },
   {
     title: 'Common',
-    lists: ['User Profile'],
+    lists: [{ text: 'User Profile' }],
     icon: 'iconamoon:box-fill',
   },
 ]

@@ -22,22 +22,19 @@
       @leave="itemLeave"
     >
       <div class="sub-heading" v-if="isOpen">
-        <p v-for="item in lists" :key="item">{{ item }}</p>
+        <p v-for="item in lists" :key="item.text">{{ item.text }}</p>
       </div>
     </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
+import type { SideBarItem } from '@/types/SideBarItem'
 
 interface Props {
-  item: {
-    title: string
-    lists: string[]
-    icon: string
-  }
+  item: SideBarItem
 }
 
 const props = defineProps<Props>()
