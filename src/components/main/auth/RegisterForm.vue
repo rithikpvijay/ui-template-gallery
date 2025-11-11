@@ -82,9 +82,7 @@
       </base-form>
 
       <router-link to="/sign-in" class="sign-in">Have an account? Sign In</router-link>
-      <auth-providers type="sign-in" />
-
-      <div class="sign-in">Have an account? Sign In</div>
+      <auth-providers type="sign-in"></auth-providers>
     </div>
   </div>
 </template>
