@@ -1,39 +1,16 @@
 <template>
   <input type="checkbox" class="check-box" />
 
-  <div class="table-heading">
-    <p>Name</p>
-    <Icon icon="tabler:filter-2" width="16" height="16" />
-  </div>
-
-  <div class="table-heading">
-    <p>Company</p>
-    <Icon icon="tabler:filter-2" width="16" height="16" />
-  </div>
-
-  <div class="table-heading">
-    <p>Status</p>
-    <Icon icon="tabler:filter-2" width="16" height="16" />
-  </div>
-
-  <div class="table-heading">
-    <p>Assigned to</p>
-    <Icon icon="tabler:filter-2" width="16" height="16" />
-  </div>
-
-  <div class="table-heading">
-    <p>Phone</p>
-    <Icon icon="tabler:filter-2" width="16" height="16" />
-  </div>
-
-  <div class="table-heading">
-    <p>Email</p>
+  <div class="table-heading" v-for="header in tableHeaders" :key="header">
+    <p>{{ header }}</p>
     <Icon icon="tabler:filter-2" width="16" height="16" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
+
+const tableHeaders = ['Name', 'Company', 'Status', 'Assigned To', 'Phone', 'Email']
 </script>
 
 <style scoped>

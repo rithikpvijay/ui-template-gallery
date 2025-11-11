@@ -12,15 +12,10 @@
       </div>
 
       <base-icon icon="mingcute:refresh-4-line" class="refresh-icon"></base-icon>
-
       <div class="separator"></div>
-
       <main-header-export></main-header-export>
-
       <div class="separator"></div>
-
       <base-icon icon="material-symbols:square-outline-rounded"></base-icon>
-
       <base-search-bar placeholder="Contact Search" width="160px" fontSize="13px"></base-search-bar>
     </div>
   </div>

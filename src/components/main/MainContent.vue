@@ -14,9 +14,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { User } from '@/types/User'
 import MainTable from '@/components/main/MainTable.vue'
 import MainRows from '@/components/main/MainRows.vue'
+import type { User } from '@/types/User'
 
 const users = ref<User[] | null>(null)
 const isLoading = ref(false)

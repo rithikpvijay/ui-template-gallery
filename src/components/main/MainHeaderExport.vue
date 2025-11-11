@@ -6,21 +6,9 @@
     </template>
 
     <template #menu>
-      <div class="export-item">
-        <Icon icon="tdesign:file-pdf" width="16" height="16" style="color: var(--color-icon)" />
-        <p>Export all data to Excel</p>
-      </div>
-      <div class="export-item">
-        <Icon icon="lucide:file-input" width="16" height="16" style="color: var(--color-icon)" />
-        <p>Export selected rows to Excel</p>
-      </div>
-      <div class="export-item">
-        <Icon icon="tdesign:file-pdf" width="16" height="16" style="color: var(--color-icon)" />
-        <p>Export all data to PDF</p>
-      </div>
-      <div class="export-item">
-        <Icon icon="lucide:file-input" width="16" height="16" style="color: var(--color-icon)" />
-        <p>Export selected rows to PDF</p>
+      <div class="export-item" v-for="item in exportItems" :key="item.text">
+        <Icon :icon="item.iconName" width="16" height="16" style="color: var(--color-icon)" />
+        <p>{{ item.text }}</p>
       </div>
     </template>
   </base-menu>
@@ -28,6 +16,30 @@
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
+
+interface ExportItem {
+  iconName: string
+  text: string
+}
+
+const exportItems: ExportItem[] = [
+  {
+    iconName: 'tdesign:file-pdf',
+    text: 'Export all data to Excel',
+  },
+  {
+    iconName: 'lucide:file-input',
+    text: 'Export selected rows to excel',
+  },
+  {
+    iconName: 'tdesign:file-pdf',
+    text: 'Export all data to PDF',
+  },
+  {
+    iconName: 'lucide:file-input',
+    text: 'Export selected row to PDF',
+  },
+]
 </script>
 
 <style scoped>

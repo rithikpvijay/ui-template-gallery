@@ -6,14 +6,13 @@
     </template>
 
     <template #menu>
-      <div>All</div>
-      <div>Salaried</div>
-      <div>Commission</div>
-      <div>Terminated</div>
+      <div v-for="item in filterItems" :key="item">{{ item }}</div>
     </template>
   </base-menu>
 </template>
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
+
+const filterItems = ['All', 'Salaried', 'Commission', 'Terminated']
 </script>
