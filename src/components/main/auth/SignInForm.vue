@@ -27,25 +27,19 @@
       </base-form>
 
       <div class="auth-forgot-link">Forgot password?</div>
-
       <auth-providers type="resigter"></auth-providers>
-
-      <Icon icon="line-md:loading-loop" width="96" height="96" class="loading" v-if="isLoading" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { Icon } from '@iconify/vue'
 import AuthProviders from './AuthProviders.vue'
 import { useToast } from 'vue-toastification'
 import { useAuthStore } from '@/store/auth'
-import { storeToRefs } from 'pinia'
 
 const toast = useToast()
 const authStore = useAuthStore()
-const { isLoading } = storeToRefs(authStore)
 const isFormValid = ref(true)
 const formValues = reactive({
   email: '',
@@ -117,13 +111,5 @@ const handleSignUp = () => {
   text-decoration: underline;
   margin-top: 20px;
   text-align: center;
-}
-
-.loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--color-blue-dark);
 }
 </style>

@@ -82,10 +82,7 @@
       </base-form>
 
       <router-link to="/sign-in" class="sign-in">Have an account? Sign In</router-link>
-
       <auth-providers type="sign-in"></auth-providers>
-
-      <Icon icon="line-md:loading-loop" width="96" height="96" class="loading" v-if="isLoading" />
     </div>
   </div>
 </template>
@@ -95,12 +92,10 @@ import { reactive, ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useAuthStore } from '@/store/auth'
 import AuthProviders from './AuthProviders.vue'
-import { storeToRefs } from 'pinia'
 
 type Field = keyof typeof showInvalidMessage
 
 const authStore = useAuthStore()
-const { isLoading } = storeToRefs(authStore)
 
 const formValues = reactive({
   email: { value: '', isValid: true },
@@ -212,13 +207,5 @@ const handleSignUp = () => {
   border-radius: 6px;
   position: absolute;
   bottom: -20px;
-}
-
-.loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--color-blue);
 }
 </style>
