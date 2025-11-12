@@ -25,16 +25,21 @@ const router = createRouter({
 
 const toast = useToast()
 
-router.beforeEach((to) => {
+router.beforeEach((to, from) => {
   const authStore = useAuthStore()
+  const isFirstVisit = !from.path || from.path === '/'
 
   if (to.meta.requiresAuth && !authStore.userSession) {
-    toast.error('You must log In')
+    if (!isFirstVisit) {
+      toast.error('You must log In')
+    }
     return '/sign-in'
   }
 
   if (to.meta.guestOnly && authStore.userSession) {
-    toast.error('You are already signed in')
+    if (!isFirstVisit) {
+      toast.error('You are already signed in')
+    }
     return '/'
   }
 })
