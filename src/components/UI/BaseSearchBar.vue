@@ -38,5 +38,6 @@ input:hover {
   position: absolute;
   top: 7px;
   left: 9px;
+  pointer-events: none;
 }
 </style>

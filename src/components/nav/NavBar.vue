@@ -48,6 +48,10 @@ import BaseSearchBar from '../UI/BaseSearchBar.vue'
   gap: 10px;
 }
 
+.icon {
+  height: 12px;
+}
+
 .icon-text p {
   font-weight: 500;
 }
@@ -93,6 +97,35 @@ import BaseSearchBar from '../UI/BaseSearchBar.vue'
 
 .nav-icon:hover {
   background-color: var(--color-onhover);
+}
+
+.image-container {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--color-image-container);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.nav-utilities div {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.image-container:hover {
+  border-color: var(--color-blue);
+}
+
+.image {
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 50%;
 }
 
 .search-bar {
