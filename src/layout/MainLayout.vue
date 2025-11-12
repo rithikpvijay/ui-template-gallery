@@ -2,14 +2,16 @@
   <div class="grid-container">
     <nav-bar class="nav"></nav-bar>
     <side-bar class="side-bar"></side-bar>
-    <main-app class="main"></main-app>
+    <main-app class="main">
+      <router-view></router-view>
+    </main-app>
   </div>
 </template>
 
 <script setup lang="ts">
 import NavBar from '@/components/nav/NavBar.vue'
 import SideBar from '@/components/sidebar/SideBar.vue'
-import MainApp from '@/components/MainApp.vue'
+import MainApp from '@/components/main/MainApp.vue'
 </script>
 
 <style scoped>

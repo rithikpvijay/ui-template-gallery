@@ -1,0 +1,83 @@
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
+import type { User, AuthError } from '@supabase/supabase-js'
+import { useToast } from 'vue-toastification'
+import { supabase } from '@/lib/subapaseClient'
+import router from '@/router'
+
+export const useAuthStore = defineStore('auth', () => {
+  const user = ref<User | null>(null)
+  const userSession = ref<User | null>(null)
+  const error = ref<string | null>(null)
+  const isLoading = ref(false)
+  const toast = useToast()
+
+  const initAuth = async () => {
+    const { data } = await supabase.auth.getUser()
+    userSession.value = data.user ?? null
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      userSession.value = session?.user ?? null
+    })
+  }
+
+  const signUp = async (email: string, password: string) => {
+    try {
+      isLoading.value = true
+      const { error: authError } = await supabase.auth.signUp({ email, password })
+      if (authError) {
+        throw authError
+      }
+      toast.success('User Signed Up Successfully')
+      router.replace('/sign-in')
+    } catch (err: unknown) {
+      const e = err as AuthError
+      error.value = e.message || 'Something went wrong while signing up'
+      toast.error('Something went wrong')
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  const signIn = async (email: string, password: string) => {
+    try {
+      isLoading.value = true
+      const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password })
+
+      if (authError) {
+        throw authError
+      }
+
+      user.value = data.user
+      toast.success('Logged In Successfully')
+      router.replace('/')
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        error.value = err.message
+        toast.error(err.message)
+      }
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  const logout = async () => {
+    try {
+      isLoading.value = true
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        throw new Error('Something wen wrong')
+      }
+      toast.success('Logged out')
+      router.replace('/sign-in')
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        error.value = err.message
+      }
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  return { signUp, isLoading, signIn, logout, userSession, initAuth }
+})

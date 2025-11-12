@@ -1,16 +1,38 @@
 <template>
   <div class="search-bar">
     <Icon icon="material-symbols:search" width="16" height="16" class="icon" />
-    <input type="text" :placeholder="placeholder" />
+    <input
+      type="text"
+      :placeholder="placeholder"
+      :style="{ width, fontSize }"
+      v-model.trim="searchQuery"
+      @input="handleInput"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
+
 interface Props {
   placeholder: string
+  width?: string
+  fontSize?: string
 }
-defineProps<Props>()
+
+const emit = defineEmits(['search'])
+
+const searchQuery = ref<string>('')
+
+withDefaults(defineProps<Props>(), {
+  width: '100%',
+  fontSize: '12px',
+})
+
+function handleInput() {
+  emit('search', searchQuery.value)
+}
 </script>
 
 <style scoped>
@@ -24,7 +46,6 @@ input {
   outline: none;
   padding: 9px 12px 9px 30px;
   background-color: var(--color-secondary);
-  font-size: 12px;
   border-bottom: 1px solid #888;
 }
 
