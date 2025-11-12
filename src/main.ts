@@ -18,7 +18,7 @@ app.use(pinia)
 
 const toastConfigOptions = {
   position: 'top-center',
-  timeout: 3000,
+  timeout: 2000,
   closeOnClick: true,
   pauseOnHover: true,
   draggable: true,

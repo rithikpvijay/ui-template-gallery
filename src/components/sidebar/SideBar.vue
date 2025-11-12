@@ -22,7 +22,10 @@ import ListItem from './ListItem.vue'
 const items: SideBarItem[] = [
   {
     title: 'CRM',
-    lists: [{ text: 'Contact List' }, { text: 'Contact Details' }],
+    lists: [
+      { text: 'Contact List', navigateTo: 'contact-list' },
+      { text: 'Contact Details', navigateTo: 'contact-list/1' },
+    ],
     icon: 'mdi:user',
   },
   {
@@ -37,7 +40,11 @@ const items: SideBarItem[] = [
   },
   {
     title: 'Authentication',
-    lists: [{ text: 'Sign In Form' }, { text: 'Register Form' }, { text: 'Reset Password Form' }],
+    lists: [
+      { text: 'Sign In Form', navigateTo: 'sign-in' },
+      { text: 'Register Form', navigateTo: 'sign-up' },
+      { text: 'Reset Password Form' },
+    ],
     icon: 'mdi:user-box',
   },
   {

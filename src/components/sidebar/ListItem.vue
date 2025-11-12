@@ -22,7 +22,14 @@
       @leave="itemLeave"
     >
       <div class="sub-heading" v-if="isOpen">
-        <p v-for="item in lists" :key="item.text">{{ item.text }}</p>
+        <p
+          v-for="item in lists"
+          :key="item.text"
+          @click="handleNavigation(item.navigateTo)"
+          :class="{ 'active-route': `/${item.navigateTo}` === route.path }"
+        >
+          {{ item.text }}
+        </p>
       </div>
     </Transition>
   </div>
@@ -30,6 +37,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import type { SideBarItem } from '@/types/SideBarItem'
 
@@ -37,11 +45,18 @@ interface Props {
   item: SideBarItem
 }
 
+const route = useRoute()
+const router = useRouter()
 const props = defineProps<Props>()
-
 const { title, lists, icon } = props.item
-
 const isOpen = ref(true)
+
+const handleNavigation = (navigateTo: string | undefined) => {
+  if (!navigateTo) {
+    return
+  }
+  router.push(`/${navigateTo}`)
+}
 
 function handleClick() {
   isOpen.value = !isOpen.value
@@ -127,7 +142,11 @@ function itemLeave(el: Element) {
   cursor: pointer;
 }
 
-.sub-heading p.active {
+.active-route {
+  background-color: var(--color-active);
+}
+
+.sub-heading .active-route:hover {
   background-color: var(--color-active);
 }
 </style>
