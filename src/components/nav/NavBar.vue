@@ -155,8 +155,8 @@ const logOutVisibility = computed(() => {
   position: fixed;
   height: calc(100vh - 56.5px);
   width: calc(100vw - 250px);
-  top: 8%;
-  left: 17%;
+  top: 56.5px;
+  left: 250px;
   backdrop-filter: blur(2px);
 }
 
