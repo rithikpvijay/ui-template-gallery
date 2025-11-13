@@ -16,7 +16,6 @@
       </div>
     </div>
     <Transition
-<<<<<<< HEAD
       @before-enter="beforeItemEnter"
       @enter="itemEnter"
       @before-leave="beforeItemLeave"
@@ -24,39 +23,18 @@
     >
       <div class="sub-heading" v-if="isOpen">
         <p v-for="item in lists" :key="item.text">{{ item.text }}</p>
-=======
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @before-leave="beforeLeave"
-      @leave="leave"
-    >
-      <div class="sub-heading" v-if="isOpen">
-        <p v-for="item in lists" :key="item">{{ item }}</p>
->>>>>>> 62558fa (feat(side-bar): add side bar)
       </div>
     </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-<<<<<<< HEAD
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import type { SideBarItem } from '@/types/SideBarItem'
 
 interface Props {
   item: SideBarItem
-=======
-import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
-
-interface Props {
-  item: {
-    title: string
-    lists: string[]
-    icon: string
-  }
->>>>>>> 62558fa (feat(side-bar): add side bar)
 }
 
 const props = defineProps<Props>()
@@ -69,40 +47,24 @@ function handleClick() {
   isOpen.value = !isOpen.value
 }
 
-<<<<<<< HEAD
 function beforeItemEnter(el: Element) {
-=======
-function beforeEnter(el: Element) {
->>>>>>> 62558fa (feat(side-bar): add side bar)
   const htmlEl = el as HTMLElement
   htmlEl.style.height = '0'
 }
 
-<<<<<<< HEAD
 function itemEnter(el: Element) {
-=======
-function enter(el: Element) {
->>>>>>> 62558fa (feat(side-bar): add side bar)
   const htmlEl = el as HTMLElement
   const height = htmlEl.scrollHeight + 'px'
   htmlEl.style.transition = 'height 0.3s ease-out'
   htmlEl.style.height = height
 }
 
-<<<<<<< HEAD
 function beforeItemLeave(el: Element) {
-=======
-function beforeLeave(el: Element) {
->>>>>>> 62558fa (feat(side-bar): add side bar)
   const htmlEl = el as HTMLElement
   htmlEl.style.height = htmlEl.scrollHeight + 'px'
 }
 
-<<<<<<< HEAD
 function itemLeave(el: Element) {
-=======
-function leave(el: Element) {
->>>>>>> 62558fa (feat(side-bar): add side bar)
   const htmlEl = el as HTMLElement
   htmlEl.style.transition = 'height 0.3s ease-in'
   htmlEl.style.height = '0'
@@ -166,14 +128,6 @@ function leave(el: Element) {
 }
 
 .sub-heading p.active {
-<<<<<<< HEAD
-<<<<<<< HEAD
   background-color: var(--color-active);
-=======
-  background-color: var(--color-list-active);
->>>>>>> 62558fa (feat(side-bar): add side bar)
-=======
-  background-color: var(--color-active);
->>>>>>> 0b8eb4d (feat(main) : add main content)
 }
 </style>
