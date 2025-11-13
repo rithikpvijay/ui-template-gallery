@@ -9,7 +9,7 @@
       <div class="details-btn-flex">
         <p>Details</p>
         <div class="edit-save-btn" @click="handleFormEditing" v-if="isFormDisabled">
-          <Icon icon="material-symbols:edit" width="16" height="16" />
+          <Icon icon="material-symbols:edit" width="14" height="14" />
           <p>Edit</p>
         </div>
         <div v-if="!isFormDisabled">
@@ -484,21 +484,17 @@ const handleStatus = (value: string) => {
 }
 
 .menu-title {
-  padding: 8px 12px 4px 0px;
+  padding: 14px 12px 4px 12px;
   width: 225px;
   display: flex;
   align-items: center;
   gap: 4px;
   font-weight: 400;
   font-size: 12px;
-}
-
-.menu-title-static {
-  padding: 14px 12px 0px 12px;
+  cursor: pointer;
 }
 
 .menu-item {
-  padding: 4px 12px 4px 12px;
   width: 250px;
   display: flex;
   align-items: center;
