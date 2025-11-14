@@ -1,6 +1,7 @@
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { User } from '@/types/User'
-import { ref } from 'vue'
+import { API_USERS } from '@/types/UsersApi'
 
 export const useUserStore = defineStore('user', () => {
   const users = ref<User[]>([])
@@ -11,7 +12,7 @@ export const useUserStore = defineStore('user', () => {
     try {
       isLoading.value = true
       error.value = null
-      const res = await fetch('data/users.json')
+      const res = await fetch(API_USERS)
       if (!res.ok) throw new Error('Something went wrong')
       users.value = await res.json()
     } catch (err) {
