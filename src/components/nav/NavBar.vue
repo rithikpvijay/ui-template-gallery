@@ -69,7 +69,7 @@ import BaseSearchBar from '../UI/BaseSearchBar.vue'
 .image-container {
   width: 26px;
   height: 26px;
-  border: 1px solid #f1f1f1;
+  border: 1px solid var(--color-image-border);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -77,7 +77,7 @@ import BaseSearchBar from '../UI/BaseSearchBar.vue'
   cursor: pointer;
 }
 
-.nav-utilities div {
+.nav-utilities {
   display: flex;
   align-items: center;
   margin-right: 8px;

@@ -18,15 +18,28 @@
 
       <div class="separator"></div>
       <base-icon icon="material-symbols:square-outline-rounded"></base-icon>
-      <base-search-bar placeholder="Contact Search" width="160px" fontSize="13px"></base-search-bar>
+
+      <base-search-bar
+        placeholder="Contact Search"
+        width="160px"
+        fontSize="13px"
+        @search="handleSearch"
+      ></base-search-bar>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
+import { useUserStore } from '@/store/user'
 import ContactHeaderFilter from '@/components/main/contact/ContactHeaderFilter.vue'
 import ContactHeaderExport from '@/components/main/contact/ContactHeaderExport.vue'
+
+const { filterUserByQuery } = useUserStore()
+
+function handleSearch(query: string) {
+  filterUserByQuery(query)
+}
 </script>
 
 <style scoped>
