@@ -52,35 +52,6 @@ import BaseSearchBar from '../UI/BaseSearchBar.vue'
   font-weight: 500;
 }
 
-.image-container {
-  width: 26px;
-  height: 26px;
-  border: 1px solid var(--color-image-border);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.image-container:hover {
-  border-color: var(--color-blue);
-}
-
-.image {
-  width: 26px;
-  height: 26px;
-  object-fit: cover;
-  object-position: top;
-  border-radius: 50%;
-}
-
-.nav-utilities {
-  display: flex;
-  align-items: center;
-  margin-right: 8px;
-}
-
 .nav-icon {
   border-radius: 50%;
   width: 28px;
@@ -93,6 +64,35 @@ import BaseSearchBar from '../UI/BaseSearchBar.vue'
 
 .nav-icon:hover {
   background-color: var(--color-onhover);
+}
+
+.image-container {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--color-image-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.nav-utilities {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.image-container:hover {
+  border-color: var(--color-blue);
+}
+
+.image {
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 50%;
 }
 
 .search-bar {
