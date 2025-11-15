@@ -27,28 +27,22 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-
 const { searchQuery } = storeToRefs(useUserStore())
+const regexEscapePattern = /[.*+?^${}()|[\]\\]/g
 
 const statusColor = computed(() => {
-  return {
-    salaried: props.user.status === 'Salaried',
-    commission: props.user.status === 'Commission',
-    terminated: props.user.status === 'Terminated',
-  }
+  return props.user.status.toLowerCase()
 })
 
 const statusDotColor = computed(() => {
-  return {
-    'salaried-dot': props.user.status === 'Salaried',
-    'commission-dot': props.user.status === 'Commission',
-    'terminated-dot': props.user.status === 'Terminated',
-  }
+  return `${props.user.status.toLowerCase()}-dot`
 })
 
 function highlightMatch(text: string, query: string | null): string {
-  if (!query) return text
-  const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  if (!query) {
+    return text
+  }
+  const safeQuery = query.replace(regexEscapePattern, '\\$&')
   const regex = new RegExp(`(${safeQuery})`, 'gi')
   return text.replace(regex, '<mark>$1</mark>')
 }
@@ -77,6 +71,7 @@ function highlightMatch(text: string, query: string | null): string {
   display: inline-block;
   border-radius: 50%;
 }
+
 .status {
   display: flex;
   align-items: center;

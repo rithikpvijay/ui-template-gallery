@@ -57,13 +57,13 @@ export const useUserStore = defineStore('user', () => {
   }
 
   return {
-    users,
-    isLoading,
     error,
     fetchUsers,
+    filteredUsers,
     filterUserByStatus,
     filterUserByQuery,
-    filteredUsers,
+    isLoading,
     searchQuery,
+    users,
   }
 })
