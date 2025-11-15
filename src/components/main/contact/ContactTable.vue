@@ -30,8 +30,8 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
-import { useUserStore } from '@/store/user'
 import BaseFilterMenu from '@/components/UI/BaseFilterMenu.vue'
+import { useUserStore } from '@/store/user'
 
 const headerEl = ref<HTMLElement[] | null>()
 

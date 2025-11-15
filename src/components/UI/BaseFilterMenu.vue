@@ -40,6 +40,7 @@ interface Props {
 const props = defineProps<Props>()
 const menuRef = ref<HTMLElement | null>(null)
 const isOpen = ref(false)
+const menuOpenDelay = 150
 
 const filterMenuStyle = computed(() => {
   let targetWidth
@@ -93,7 +94,7 @@ const handleOpen = () => {
   isOpen.value = false
   setTimeout(() => {
     isOpen.value = true
-  }, 150)
+  }, menuOpenDelay)
 }
 
 const handleClickOutside = (e: MouseEvent) => {
