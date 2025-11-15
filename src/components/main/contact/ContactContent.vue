@@ -4,7 +4,7 @@
       <contact-table></contact-table>
     </div>
 
-    <div class="contact-rows" v-if="users.length && !isLoading">
+    <div class="contact-rows">
       <div v-for="user in users" :key="user.id" class="contact-row">
         <contact-rows :user="user"></contact-rows>
       </div>
@@ -13,16 +13,33 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import { useUserStore } from '@/store/user'
+import { ref } from 'vue'
 import ContactTable from '@/components/main/contact/ContactTable.vue'
 import ContactRows from '@/components/main/contact/ContactRows.vue'
+import type { User } from '@/types/User'
 
-const store = useUserStore()
+const users = ref<User[] | null>(null)
+const isLoading = ref(false)
+const error = ref<Error | string | null>(null)
 
-const { users, isLoading } = storeToRefs(store)
+async function getUsers() {
+  try {
+    isLoading.value = true
 
-store.fetchUsers()
+    const res = await fetch('data/users.json')
+    if (!res.ok) throw new Error('Something went wrong')
+
+    users.value = await res.json()
+  } catch (err) {
+    if (err instanceof Error) {
+      error.value = err.message
+    }
+  } finally {
+    isLoading.value = false
+  }
+}
+
+getUsers()
 </script>
 
 <style scoped>
