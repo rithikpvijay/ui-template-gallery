@@ -32,6 +32,7 @@ store.fetchUsers()
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: calc(100vh - 144px);
 }
 
 .contact-table,

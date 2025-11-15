@@ -14,6 +14,7 @@ import MainLayout from './layout/MainLayout.vue'
   --color-search-bar: #0000000a;
   --color-search-icon: #0000008a;
   --color-blue: #03a9f4;
+  --color-blue-light: #e1f5fe;
   --color-blue-dark: #0288d1;
   --color-arrow: #0000008a;
   --color-heading-hover: #7a7a7a1f;
@@ -31,6 +32,9 @@ import MainLayout from './layout/MainLayout.vue'
   --shadow-inner: 0 0 4px rgba(0, 0, 0, 0.15);
   --shadow-menu: 0 2px 4px rgba(0, 0, 0, 0.2);
   --shadow-button: 0 1px 3px rgba(0, 0, 0, 0.24);
+  --shadow-menu-filter:
+    0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14),
+    0 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
 
 body {
