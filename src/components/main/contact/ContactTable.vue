@@ -14,7 +14,7 @@
         <Icon icon="tabler:filter-2" width="16" height="16" />
       </template>
       <template #filter-menu>
-        <div v-for="(name, i) in getUsersProps[index]?.value" :key="i">
+        <div v-for="(name, i) in getUserDataByKey(toCamelCase(header) as keyof User)" :key="i">
           <input type="checkbox" class="check-box" />
           <div>
             {{ name }}
@@ -30,28 +30,14 @@ import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
 import BaseFilterMenu from '@/components/UI/BaseFilterMenu.vue'
+import { toCamelCase } from '@/utility/toCamelCase'
 import { useUserStore } from '@/store/user'
+import type { User } from '@/types/User'
 
 const headerEl = ref<HTMLElement[] | null>()
 
 const tableHeaders = ['Name', 'Company', 'Status', 'Assigned to', 'Phone', 'Email']
-const {
-  getUsersName,
-  getUsersAssignedTo,
-  getUsersCompany,
-  getUsersEmail,
-  getUsersPhone,
-  getUsersStatus,
-} = storeToRefs(useUserStore())
-
-const getUsersProps = [
-  getUsersName,
-  getUsersCompany,
-  getUsersStatus,
-  getUsersAssignedTo,
-  getUsersPhone,
-  getUsersEmail,
-]
+const { getUserDataByKey } = storeToRefs(useUserStore())
 </script>
 
 <style scoped>

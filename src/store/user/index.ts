@@ -2,6 +2,7 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { User } from '@/types/User'
 import { API_USERS } from '@/types/UsersApi'
+import type { UserData } from '@/types/UserData'
 
 export const useUserStore = defineStore('user', () => {
   const users = ref<User[]>([])
@@ -11,28 +12,8 @@ export const useUserStore = defineStore('user', () => {
   const searchQuery = ref<string | null>(null)
   let filteredUserByStatus: User[]
 
-  const getUsersName = computed(() => {
-    return [...new Set(filteredUsers.value.map((user) => user.name))]
-  })
-
-  const getUsersCompany = computed(() => {
-    return [...new Set(filteredUsers.value.map((user) => user.company))]
-  })
-
-  const getUsersStatus = computed(() => {
-    return [...new Set(filteredUsers.value.map((user) => user.status))]
-  })
-
-  const getUsersPhone = computed(() => {
-    return filteredUsers.value.map((user) => user.phone)
-  })
-
-  const getUsersAssignedTo = computed(() => {
-    return [...new Set(filteredUsers.value.map((user) => user.mentor))]
-  })
-
-  const getUsersEmail = computed(() => {
-    return [...new Set(filteredUsers.value.map((user) => user.email))]
+  const getUserDataByKey = computed(() => {
+    return (key: UserData) => [...new Set(users.value.map((user) => user[key]))]
   })
 
   const getUserById = computed(() => {
@@ -48,7 +29,6 @@ export const useUserStore = defineStore('user', () => {
       if (!res.ok) throw new Error('Something went wrong')
       users.value = await res.json()
       filteredUsers.value = users.value
-      filteredUserByStatus = users.value
     } catch (err) {
       if (err instanceof Error) {
         error.value = err.message
@@ -87,8 +67,8 @@ export const useUserStore = defineStore('user', () => {
   }
 
   function updateUser(id: number, value: Partial<User>) {
-    const user = users.value.find((user) => user.id === id)
-    if (user) Object.assign(user, value)
+    users.value = users.value.map((user) => (user.id === id ? { ...user, ...value } : user))
+    filteredUsers.value = users.value
   }
 
   return {
@@ -98,12 +78,7 @@ export const useUserStore = defineStore('user', () => {
     filterUserByStatus,
     filterUserByQuery,
     getUserById,
-    getUsersAssignedTo,
-    getUsersCompany,
-    getUsersEmail,
-    getUsersName,
-    getUsersPhone,
-    getUsersStatus,
+    getUserDataByKey,
     isLoading,
     searchQuery,
     updateUser,

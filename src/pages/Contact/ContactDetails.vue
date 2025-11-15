@@ -2,7 +2,7 @@
   <div class="contact-details-container">
     <div class="contact-details-nav">
       <base-icon icon="material-symbols:arrow-back" @click="handleRouteBack"></base-icon>
-      <p>{{ fullName ? fullName : '' }}</p>
+      <p>{{ fullName ?? fullName }}</p>
     </div>
 
     <div class="details-box" v-if="formValues">
@@ -14,7 +14,7 @@
         </div>
         <div v-if="!isFormDisabled">
           <span class="edit-save-btn" @click="handleFormSave">Save</span>
-          <span class="cancel-btn" @click="handleFormCancel">Cancel</span>
+          <span class="cancel-button" @click="handleFormCancel">Cancel</span>
         </div>
       </div>
 
@@ -92,7 +92,7 @@
           <input
             type="text"
             id="assignedTo"
-            v-model="formValues.mentor"
+            v-model="formValues.assignedTo"
             :disabled="isFormDisabled"
             :class="{ disabled: isFormDisabled }"
           />
@@ -245,11 +245,7 @@ const statusDotColor = computed(() => {
   if (isFormDisabled.value) {
     status = formValues.status
   }
-  return {
-    'salaried-dot': status === 'Salaried',
-    'terminated-dot': status === 'Terminated',
-    'commission-dot': status === 'Commission',
-  }
+  return `${status?.toLowerCase()}-dot`
 })
 
 const statusTextColor = computed(() => {
@@ -257,11 +253,7 @@ const statusTextColor = computed(() => {
   if (isFormDisabled.value) {
     status = formValues.status
   }
-  return {
-    salaried: status === 'Salaried',
-    terminated: status === 'Terminated',
-    commission: status === 'Commission',
-  }
+  return status?.toLowerCase()
 })
 
 const handleRouteBack = () => {
@@ -327,7 +319,7 @@ const handleStatus = (value: string) => {
   background-color: var(--color-blue-dark);
 }
 
-.cancel-btn {
+.cancel-button {
   text-transform: uppercase;
   font-size: 13px;
   border: 1px solid #bbb;
@@ -337,7 +329,7 @@ const handleStatus = (value: string) => {
   margin-left: 6px;
 }
 
-.cancel-btn:hover {
+.cancel-button:hover {
   background-color: var(--color-secondary);
 }
 
@@ -393,19 +385,15 @@ const handleStatus = (value: string) => {
   z-index: 1;
 }
 
-.status-container {
+.status-container,
+.first-name-container,
+.last-name-container,
+.email-container {
   grid-column: 2/-1;
 }
 
-.first-name-container {
-  grid-column: 2/-1;
-}
-
-.last-name-container {
-  grid-column: 2/-1;
-}
-
-.company-container {
+.company-container,
+.address-container {
   grid-column: 1/-1;
 }
 
@@ -418,17 +406,9 @@ const handleStatus = (value: string) => {
   grid-row: 5/5;
 }
 
-.address-container {
-  grid-column: 1/-1;
-}
-
 .assigned-to-container {
   grid-column: 2/-1;
   grid-row: 5/5;
-}
-
-.email-container {
-  grid-column: 2/-1;
 }
 
 .contact-details-form .disabled {

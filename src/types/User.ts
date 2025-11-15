@@ -4,7 +4,7 @@ export interface User {
   designation: string
   company: string
   status: string
-  mentor: string
+  assignedTo: string
   phone: string
   email: string
   address: string
