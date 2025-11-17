@@ -3,7 +3,7 @@
     <slot name="title"></slot>
   </div>
 
-  <form>
+  <form @submit.prevent="handleSubmit">
     <div class="form-input">
       <slot name="input"></slot>
     </div>
@@ -13,6 +13,14 @@
     </button>
   </form>
 </template>
+
+<script setup lang="ts">
+const emit = defineEmits(['submit'])
+
+const handleSubmit = () => {
+  emit('submit')
+}
+</script>
 
 <style scoped>
 .title {
