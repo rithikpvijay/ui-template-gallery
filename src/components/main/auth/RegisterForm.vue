@@ -208,12 +208,4 @@ const handleSignUp = () => {
   position: absolute;
   bottom: -20px;
 }
-
-.loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--color-blue);
-}
 </style>
