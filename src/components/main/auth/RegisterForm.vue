@@ -20,16 +20,15 @@
             <input type="password" />
           </div>
 
-          <span class="terms-conditions"
-            >By creating an account, you agree to the Terms of Service and Privacy Policy</span
-          >
+          <span class="terms-conditions">
+            By creating an account, you agree to the Terms of Service and Privacy Policy
+          </span>
         </template>
         <template #form-btn> Register </template>
       </base-form>
 
       <div class="sign-in">Have an account? Sign In</div>
-
-      <auth-providers type="sign-in"></auth-providers>
+      <auth-providers type="sign-in" />
     </div>
   </div>
 </template>
