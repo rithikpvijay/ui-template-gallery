@@ -2,6 +2,7 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { User } from '@/types/User'
 import { API_USERS } from '@/types/UsersApi'
+import type { UserData } from '@/types/UserData'
 
 export const useUserStore = defineStore('user', () => {
   const users = ref<User[]>([])
@@ -11,28 +12,12 @@ export const useUserStore = defineStore('user', () => {
   const searchQuery = ref<string | null>(null)
   let filteredUserByStatus: User[]
 
-  const getUsersName = computed(() => {
-    return [...new Set(filteredUsers.value.map((user) => user.name))]
+  const getUserDataByKey = computed(() => {
+    return (key: UserData) => [...new Set(users.value.map((user) => user[key]))]
   })
 
-  const getUsersCompany = computed(() => {
-    return [...new Set(filteredUsers.value.map((user) => user.company))]
-  })
-
-  const getUsersStatus = computed(() => {
-    return [...new Set(filteredUsers.value.map((user) => user.status))]
-  })
-
-  const getUsersPhone = computed(() => {
-    return filteredUsers.value.map((user) => user.phone)
-  })
-
-  const getUsersAssignedTo = computed(() => {
-    return [...new Set(filteredUsers.value.map((user) => user.mentor))]
-  })
-
-  const getUsersEmail = computed(() => {
-    return [...new Set(filteredUsers.value.map((user) => user.email))]
+  const getUserById = computed(() => {
+    return (id: number) => users.value.find((user) => user.id === id)
   })
 
   async function fetchUsers() {
@@ -42,12 +27,13 @@ export const useUserStore = defineStore('user', () => {
       error.value = null
       const res = await fetch(API_USERS)
       if (!res.ok) throw new Error('Something went wrong')
-
       users.value = await res.json()
       filteredUsers.value = users.value
-      filteredUserByStatus = users.value
     } catch (err) {
-      if (err instanceof Error) error.value = err.message
+      if (err instanceof Error) {
+        error.value = err.message
+        console.error(err.message)
+      }
     } finally {
       isLoading.value = false
     }
@@ -80,20 +66,22 @@ export const useUserStore = defineStore('user', () => {
     )
   }
 
+  function updateUser(id: number, value: Partial<User>) {
+    users.value = users.value.map((user) => (user.id === id ? { ...user, ...value } : user))
+    filteredUsers.value = users.value
+  }
+
   return {
     error,
     fetchUsers,
     filteredUsers,
     filterUserByStatus,
     filterUserByQuery,
-    getUsersAssignedTo,
-    getUsersCompany,
-    getUsersEmail,
-    getUsersName,
-    getUsersPhone,
-    getUsersStatus,
+    getUserById,
+    getUserDataByKey,
     isLoading,
     searchQuery,
+    updateUser,
     users,
   }
 })

@@ -5,9 +5,14 @@
     </div>
 
     <div class="contact-rows" v-if="filteredUsers.length && !isLoading">
-      <div v-for="user in filteredUsers" :key="user.id" class="contact-row">
+      <router-link
+        :to="`/contact-list/${user.id}`"
+        v-for="user in filteredUsers"
+        :key="user.id"
+        class="contact-row"
+      >
         <contact-rows :user="user"></contact-rows>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -21,8 +26,6 @@ import ContactRows from '@/components/main/contact/ContactRows.vue'
 const store = useUserStore()
 
 const { filteredUsers, isLoading } = storeToRefs(store)
-
-store.fetchUsers()
 </script>
 
 <style scoped>
@@ -44,6 +47,11 @@ store.fetchUsers()
   border-bottom: 1px solid var(--color-border);
   align-items: center;
   cursor: pointer;
+}
+
+.contact-row {
+  text-decoration: none;
+  color: var(--color-text);
 }
 
 .contact-rows {

@@ -3,7 +3,15 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import MainLayout from './layout/MainLayout.vue'
+import { useUserStore } from './store/user'
+
+const userStore = useUserStore()
+
+onMounted(() => {
+  userStore.fetchUsers()
+})
 </script>
 
 <style>

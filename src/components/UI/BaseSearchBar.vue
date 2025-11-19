@@ -45,7 +45,6 @@ input {
   outline: none;
   padding: 9px 12px 9px 30px;
   background-color: var(--color-secondary);
-
   border-bottom: 1px solid #888;
 }
 

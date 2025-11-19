@@ -11,7 +11,7 @@
     <span class="dot" :class="statusDotColor"></span>
     <span v-html="highlightMatch(user.status, searchQuery)"> </span>
   </div>
-  <div class="row" v-html="highlightMatch(user.mentor, searchQuery)"></div>
+  <div class="row" v-html="highlightMatch(user.assignedTo, searchQuery)"></div>
   <div class="row" v-html="highlightMatch(user.phone, searchQuery)"></div>
   <div class="row" v-html="highlightMatch(user.email, searchQuery)"></div>
 </template>
