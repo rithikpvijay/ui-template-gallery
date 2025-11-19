@@ -1,6 +1,8 @@
 <template>
   <div class="auth-cta">
-    <button class="auth-btn btn-register" v-if="type === 'resigter'">Register</button>
+    <router-link to="/sign-up" class="auth-btn btn-register" v-if="type === 'resigter'">
+      Register
+    </router-link>
 
     <p>or</p>
 
@@ -26,6 +28,7 @@ defineProps<{ type: string }>()
 
 <style scoped>
 .auth-btn {
+  display: inline-block;
   padding: 6px 24px;
   border-radius: 2px;
   border: none;
@@ -35,6 +38,8 @@ defineProps<{ type: string }>()
   box-shadow: var(--shadow-button);
   background-color: var(--color-primary);
   width: 100%;
+  text-decoration: none;
+  color: var(--color-text);
 }
 
 .auth-btn:hover {
