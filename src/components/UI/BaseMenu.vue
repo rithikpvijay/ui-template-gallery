@@ -4,7 +4,7 @@
       <slot name="title" />
     </div>
     <Transition name="fade">
-      <div class="menu" v-if="isOpen" @click="handleMenuClick">
+      <div class="menu" :style="menuStyle" v-if="isOpen" @click="handleMenuClick">
         <slot name="menu" />
       </div>
     </Transition>
@@ -12,7 +12,14 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import type { CSSProperties } from 'vue'
+
+interface Props {
+  position?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
+}
+
+const props = defineProps<Props>()
 
 const isOpen = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
@@ -37,6 +44,33 @@ function handleKeyDown(e: KeyboardEvent) {
   }
 }
 
+const menuStyle = computed(() => {
+  const baseStyle = ref<CSSProperties>({
+    position: 'absolute',
+    width: 'max-content',
+    padding: '4px 1px',
+    display: 'inline-flex',
+    flexDirection: 'column',
+    fontSize: '13px',
+    boxShadow: 'var(--shadow-menu)',
+    zIndex: 10,
+    backgroundColor: 'var(--color-primary)',
+  })
+
+  if (props.position) {
+    if (props.position === 'bottom-right') {
+      return { ...baseStyle.value, top: '100%', right: '0' }
+    }
+    if (props.position === 'top-right') {
+      return { ...baseStyle.value, bottom: '100%', right: '0' }
+    }
+    if (props.position === 'top-left') {
+      return { ...baseStyle.value, bottom: '100%', left: '0' }
+    }
+  }
+  return { ...baseStyle.value, top: '100%', left: '0' }
+})
+
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
   document.addEventListener('keydown', handleKeyDown)
@@ -53,37 +87,8 @@ onBeforeUnmount(() => {
   position: relative;
 }
 
-.title-container {
-  font-size: 13px;
-  font-weight: 500;
-  display: inline-flex;
-  padding: 6px 12px;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  letter-spacing: 0.4px;
-}
-
-.title-container:hover {
-  background-color: var(--color-heading-hover);
-}
-
 .active {
   background-color: var(--color-heading-hover);
-}
-
-.menu {
-  position: absolute;
-  width: max-content;
-  padding: 4px 1px;
-  display: inline-flex;
-  flex-direction: column;
-  font-size: 13px;
-  box-shadow: var(--shadow-menu);
-  z-index: 10;
-  background-color: var(--color-primary);
-  top: 100%;
-  left: 0;
 }
 
 .menu > * {

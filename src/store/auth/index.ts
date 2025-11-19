@@ -1,8 +1,8 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useToast } from 'vue-toastification'
 import type { User, AuthError } from '@supabase/supabase-js'
 import { supabase } from '@/lib/subapaseClient'
-import { useToast } from 'vue-toastification'
 import { RoutePath } from '@/types/RoutePath'
 import router from '@/router'
 
@@ -41,6 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       user.value = data.user
       toast.success('Logged In Successfully')
+      router.replace('/')
     } catch (err: unknown) {
       if (err instanceof Error) {
         error.value = err.message
@@ -51,5 +52,28 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { isLoading, signIn, signUp }
+  const logout = async () => {
+    try {
+      isLoading.value = true
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        throw new Error('Something wen wrong')
+      }
+      toast.success('Logged out')
+      router.replace('/sign-in')
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        error.value = err.message
+      }
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  return {
+    isLoading,
+    logout,
+    signIn,
+    signUp,
+  }
 })
