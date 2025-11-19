@@ -1,7 +1,7 @@
 <template>
   <div class="register-container">
     <div class="register-box">
-      <base-form @submit="handleSignIn">
+      <base-form @submit="handleSignUp">
         <template #title>Register</template>
 
         <template #input>
@@ -81,7 +81,7 @@
         <template #form-btn> Register </template>
       </base-form>
 
-      <div class="sign-in">Have an account? Sign In</div>
+      <router-link to="/sign-in" class="sign-in">Have an account? Sign In</router-link>
       <auth-providers type="sign-in" />
     </div>
   </div>
@@ -89,7 +89,6 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
 import { useAuthStore } from '@/store/auth'
 import AuthProviders from './AuthProviders.vue'
@@ -97,7 +96,6 @@ import AuthProviders from './AuthProviders.vue'
 type Field = keyof typeof showInvalidMessage
 
 const authStore = useAuthStore()
-const { isLoading } = storeToRefs(authStore)
 
 const formValues = reactive({
   email: { value: '', isValid: true },
@@ -143,7 +141,7 @@ const validateForm = () => {
   }
 }
 
-const handleSignIn = () => {
+const handleSignUp = () => {
   validateForm()
 
   if (!isFormValid.value) {
@@ -182,6 +180,8 @@ const handleSignIn = () => {
 }
 
 .sign-in {
+  display: inline-block;
+  width: 100%;
   text-align: center;
   font-size: 12px;
   margin-top: 24px;
