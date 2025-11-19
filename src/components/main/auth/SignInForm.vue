@@ -27,8 +27,7 @@
       </base-form>
 
       <div class="auth-forgot-link">Forgot password?</div>
-
-      <auth-providers type="resigter"></auth-providers>
+      <auth-providers type="resigter" />
     </div>
   </div>
 </template>

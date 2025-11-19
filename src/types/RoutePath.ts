@@ -3,4 +3,5 @@ export enum RoutePath {
   CONTACT_LIST = '/contact-list',
   CONTACT_DETAILS = '/contact-list/:id',
   SIGN_IN = '/sign-in',
+  SIGN_UP = '/sign-up',
 }
