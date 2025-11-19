@@ -1,1 +1,1 @@
-export const API_USERS = 'data/users.json'
+export const API_USERS = '/data/users.json'

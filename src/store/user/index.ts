@@ -23,7 +23,6 @@ export const useUserStore = defineStore('user', () => {
   async function fetchUsers() {
     try {
       isLoading.value = true
-
       error.value = null
       const res = await fetch(API_USERS)
       if (!res.ok) throw new Error('Something went wrong')
