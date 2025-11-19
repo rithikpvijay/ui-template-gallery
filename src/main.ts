@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import 'vue-toastification/dist/index.css'
+import Toast from 'vue-toastification'
 import BaseIcon from './components/UI/BaseIcon.vue'
 import BaseSearchBar from './components/UI/BaseSearchBar.vue'
 import BaseMenu from './components/UI/BaseMenu.vue'
@@ -8,11 +10,22 @@ import router from './router'
 import App from './App.vue'
 
 const app = createApp(App)
+
 const pinia = createPinia()
 
 app.use(pinia)
 
 app.use(router)
+
+const options = {
+  position: 'top-center',
+  timeout: 3000,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+}
+
+app.use(Toast, options)
 
 app.component('base-icon', BaseIcon)
 
