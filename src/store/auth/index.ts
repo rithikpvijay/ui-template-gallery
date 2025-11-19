@@ -67,7 +67,7 @@ export const useAuthStore = defineStore('auth', () => {
       isLoading.value = true
       const { error } = await supabase.auth.signOut()
       if (error) {
-        throw new Error('Something wen wrong')
+        throw new Error('Something went wrong')
       }
       toast.success('Logged out')
       router.replace('/sign-in')
