@@ -26,7 +26,7 @@
           v-for="item in lists"
           :key="item.text"
           @click="handleNavigation(item.navigateTo)"
-          :class="{ 'active-route': `/${item.navigateTo}` === route.path }"
+          :class="{ 'active-route': item.navigateTo === route.path }"
         >
           {{ item.text }}
         </p>
@@ -40,6 +40,8 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import type { SideBarItem } from '@/types/SideBarItem'
+import { RoutePath } from '@/types/RoutePath'
+import { routeBuilder } from '@/utility/routeBuilder'
 
 interface Props {
   item: SideBarItem
@@ -55,7 +57,12 @@ const handleNavigation = (navigateTo: string | undefined) => {
   if (!navigateTo) {
     return
   }
-  router.push(`/${navigateTo}`)
+
+  if (navigateTo === RoutePath.CONTACT_DETAILS) {
+    router.push(routeBuilder.contactDetails(1))
+    return
+  }
+  router.push(navigateTo)
 }
 
 function handleClick() {
