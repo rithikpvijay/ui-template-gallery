@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import ContactDetails from '@/pages/Contact/ContactDetails.vue'
-import ContactPage from '@/pages/Contact/ContactPage.vue'
-import SignIn from '@/pages/auth/SignIn.vue'
-import SignUp from '@/pages/auth/SignUp.vue'
-import { RoutePath } from '@/types/RoutePath'
-import { useAuthStore } from '@/store/auth'
 import { useToast } from 'vue-toastification'
+import ContactPage from '@/pages/Contact/ContactPage.vue'
+import ContactDetails from '@/pages/Contact/ContactDetails.vue'
+import SignInPage from '@/pages/auth/SignInPage.vue'
+import SignUpPage from '@/pages/auth/SignUpPage.vue'
+import DashboardPage from '@/pages/analytics/DashboardPage.vue'
+import { useAuthStore } from '@/store/auth'
+import { RoutePath } from '@/types/RoutePath'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,8 +19,9 @@ const router = createRouter({
       meta: { requiresAuth: true },
       props: true,
     },
-    { path: RoutePath.SIGN_IN, component: SignIn, meta: { guestOnly: true } },
-    { path: RoutePath.SIGN_UP, component: SignUp, meta: { guestOnly: true } },
+    { path: RoutePath.SIGN_IN, component: SignInPage, meta: { guestOnly: true } },
+    { path: RoutePath.SIGN_UP, component: SignUpPage, meta: { guestOnly: true } },
+    { path: RoutePath.DASHBOARD, component: DashboardPage, meta: { requiresAuth: true } },
   ],
 })
 
