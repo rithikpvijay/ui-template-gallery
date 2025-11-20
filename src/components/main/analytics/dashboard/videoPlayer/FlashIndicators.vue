@@ -17,9 +17,9 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import type { VideoControllers } from '@/types/VideoConrollers'
-import { computed } from 'vue'
 
 interface Props {
   isVideoPlaying: boolean
