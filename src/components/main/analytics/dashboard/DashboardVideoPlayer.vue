@@ -22,6 +22,7 @@
       @timeupdate="syncSlider"
       @click="handlePlayBack"
       @loadedmetadata="handleMetaData"
+      @loadeddata="status.videoReady = true"
     >
       <source :src="VIDEO_URL" type="video/mp4" />
     </video>
@@ -120,7 +121,6 @@ const handleMetaData = () => {
     return
   }
   runTime.value = videoRef.value.duration
-  status.videoReady = true
 }
 
 const handleControlVisibility = () => {
@@ -371,16 +371,16 @@ onBeforeMount(() => {
 
 .video-loading-wrapper {
   position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 768px;
   height: 432px;
   box-shadow: var(--shadow-menu);
 }
 
 .loading-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   color: var(--color-blue);
   z-index: 20;
 }
