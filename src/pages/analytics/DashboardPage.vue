@@ -2,13 +2,13 @@
   <div class="dashboard-container">
     <p class="dashboard-header">Checkout our session</p>
     <div class="vedio-player-container">
-      <dashboard-vedio-player />
+      <vedio-player />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import DashboardVedioPlayer from '@/components/main/analytics/dashboard/DashboardVideoPlayer.vue'
+import VedioPlayer from '@/components/main/analytics/dashboard/videoPlayer/VideoPlayer.vue'
 </script>
 
 <style scoped>
