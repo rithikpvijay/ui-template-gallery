@@ -5,9 +5,13 @@
     @mousemove="handleControlVisibility"
     @dblclick="handleFullScreen"
   >
-    <div v-if="!status.videoReady || status.buffering" class="video-loading-wrapper">
-      <Icon icon="line-md:loading-alt-loop" width="64" height="64" class="loading-icon" />
-    </div>
+    <Icon
+      v-if="!status.videoReady || status.buffering"
+      icon="line-md:loading-alt-loop"
+      width="64"
+      height="64"
+      class="loading-icon"
+    />
 
     <flash-indicators
       :is-video-playing="status.videoPlaying"
@@ -32,12 +36,18 @@
 
     <Transition name="controls">
       <div class="controls" v-show="status.controlVisible">
-        <slider-track
-          v-model="sliderValue"
+        <div
+          class="slider-wrapper"
           ref="sliderTrack"
-          :update-slider="updateSlider"
-          :set-dragging="setDragging"
-        />
+          @pointerdown="handleVideoSeek"
+          @pointermove="handleHoverDesign"
+          @pointerleave="status.hover = false"
+        >
+          <Transition name="hover">
+            <div class="hover-track" v-if="status.hover" :style="{ width: `${hoverValue}%` }"></div>
+          </Transition>
+          <base-slider v-model="sliderValue" :hover="status.hover"></base-slider>
+        </div>
 
         <action-controllers
           :run-time="runTime"
@@ -60,7 +70,6 @@ import { Icon } from '@iconify/vue'
 import { handleVisibilityTimeout } from '@/utility/handleVisibilityTimeout'
 import { VIDEO_URL } from '@/types/VideoUrl'
 import FlashIndicators from './FlashIndicators.vue'
-import SliderTrack from './SliderTrack.vue'
 import ActionControllers from './ActionControllers.vue'
 
 const status = reactive({
@@ -73,12 +82,13 @@ const status = reactive({
   videoPlaying: false,
   videoReady: false,
   buffering: false,
+  hover: false,
 })
 
 const { playPauseIndication, forwardIndication, rewindIndication, controlVisible } = toRefs(status)
 
 const videoRef = ref<HTMLVideoElement | null>(null)
-const sliderTrack = ref<InstanceType<typeof SliderTrack> | null>(null)
+const sliderTrack = ref<HTMLElement | null>(null)
 const fullScreenRef = ref<HTMLElement | null>(null)
 
 const runTime = ref<number | null>(null)
@@ -89,11 +99,8 @@ const forwardHideTimeout = ref<number | null>(null)
 const rewindHideTimeout = ref<number | null>(null)
 
 const sliderValue = ref(0)
+const hoverValue = ref(0)
 const skipSeconds = 5
-
-const setDragging = (value: boolean) => {
-  status.dragging = value
-}
 
 const handleMetaData = () => {
   if (!videoRef.value) {
@@ -143,13 +150,20 @@ const handlePlayBack = () => {
   handleVisibilityTimeout(playPauseIndication, playPauseHideTimeout)
 }
 
+const getSlidderPosition = (e: MouseEvent) => {
+  if (!sliderTrack.value) {
+    return 0
+  }
+  const rect = sliderTrack.value.getBoundingClientRect()
+  const offset = e.clientX - rect.left
+  return Math.min(100, Math.max(0, Math.round((offset / rect.width) * 100)))
+}
+
 const updateSlider = (e: MouseEvent) => {
-  if (!sliderTrack.value?.sliderContainerRef || !videoRef.value) {
+  if (!videoRef.value) {
     return
   }
-  const rect = sliderTrack.value.sliderContainerRef.getBoundingClientRect()
-  const offset = e.clientX - rect.left
-  sliderValue.value = Math.min(100, Math.max(0, Math.round((offset / rect.width) * 100)))
+  sliderValue.value = getSlidderPosition(e)
   videoRef.value.currentTime = (sliderValue.value / 100) * videoRef.value?.duration
 }
 
@@ -181,6 +195,31 @@ const handleVideoReplay = () => {
   videoRef.value.currentTime -= skipSeconds
   handleControlVisibility()
   handleVisibilityTimeout(rewindIndication, rewindHideTimeout)
+}
+
+const handleVideoSeek = (e: MouseEvent) => {
+  if (e.button !== 0) {
+    return
+  }
+  updateSlider(e)
+  document.addEventListener('pointermove', startDrag)
+  document.addEventListener('pointerup', stopDrag)
+}
+
+const startDrag = (e: MouseEvent) => {
+  status.dragging = true
+  updateSlider(e)
+}
+
+const stopDrag = () => {
+  status.dragging = false
+  document.removeEventListener('pointermove', startDrag)
+  document.removeEventListener('pointerup', stopDrag)
+}
+
+const handleHoverDesign = (e: MouseEvent) => {
+  status.hover = true
+  hoverValue.value = getSlidderPosition(e)
 }
 
 onMounted(() => {
@@ -220,39 +259,54 @@ onBeforeMount(() => {
   width: 100%;
 }
 
-.video-loading-wrapper {
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+
+.hover-track {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 768px;
-  height: 432px;
-  box-shadow: var(--shadow-menu);
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: var(--color-secondary);
+  height: 5px;
+  z-index: 2;
+  border-radius: 24px;
 }
 
 .loading-icon {
   color: var(--color-blue);
   z-index: 20;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .controls-enter-from,
-.controls-leave-to {
+.controls-leave-to,
+.hover-enter-from,
+.hover-leave-to {
   opacity: 0;
   pointer-events: none;
 }
 
 .controls-enter-to,
-.controls-leave-from {
+.controls-leave-from,
+.hover-enter-to,
+.hover-leave-from {
   opacity: 1;
   pointer-events: auto;
 }
 
-.controls-enter-active {
+.controls-enter-active,
+.hover-enter-active {
   transition: opacity 0.3s ease-in;
 }
 
-.controls-leave-active {
+.controls-leave-active,
+.hover-leave-active {
   transition: opacity 0.3s ease-out;
 }
 </style>
