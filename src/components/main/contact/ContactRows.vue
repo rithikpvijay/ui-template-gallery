@@ -1,5 +1,5 @@
 <template>
-  <input type="checkbox" class="check-box" />
+  <input type="checkbox" class="check-box" @click.stop />
 
   <div class="row">
     <p v-html="highlightMatch(user.name, searchQuery)"></p>
@@ -59,6 +59,7 @@ function highlightMatch(text: string, query: string | null): string {
   width: 16px;
   height: 16px;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .row {
