@@ -2,10 +2,11 @@
   <div
     class="slider-container"
     ref="sliderContainerRef"
-    :style="{ width: `${sliderWidth}%` }"
+    :style="{ width: `${sliderWidth}px`, height: `${sliderHeight}px` }"
     @pointerdown="handleSliderValue"
     @pointermove="handleHover"
     @pointerleave="hoverState.hover = false"
+    @dblclick.stop
   >
     <div
       v-if="hoverState.hover && hover"
@@ -13,10 +14,18 @@
       :style="{ width: `${hoverState.value}%` }"
     ></div>
     <div class="bg-track"></div>
-    <div class="filled-track" :style="{ width: `${modelValue}%` }"></div>
+    <div
+      class="filled-track"
+      :style="{ width: `${modelValue}%`, backgroundColor: trackColor }"
+    ></div>
     <div
       class="thumb"
-      :style="{ left: `${modelValue}%`, height: `${thumbHeight}px`, width: `${thumbWidth}px` }"
+      :style="{
+        left: `${modelValue}%`,
+        height: `${thumbHeight}px`,
+        width: `${thumbWidth}px`,
+        backgroundColor: thumbColor,
+      }"
       :class="{ 'hover-class': hoverState.hover && hover }"
     ></div>
   </div>
@@ -29,8 +38,11 @@ interface Props {
   modelValue: number
   hover?: boolean
   sliderWidth?: number
+  sliderHeight?: number
   thumbWidth?: number
   thumbHeight?: number
+  trackColor?: string
+  thumbColor?: string
 }
 defineProps<Props>()
 
@@ -45,7 +57,7 @@ const hoverState = reactive({
   value: 0,
 })
 
-const getSliderPosition = (e: MouseEvent) => {
+const getSliderValue = (e: MouseEvent) => {
   if (!sliderContainerRef.value) {
     return 0
   }
@@ -57,14 +69,14 @@ const getSliderPosition = (e: MouseEvent) => {
 
 const handleHover = (e: MouseEvent) => {
   hoverState.hover = true
-  hoverState.value = getSliderPosition(e)
+  hoverState.value = getSliderValue(e)
 }
 
 const handleSliderValue = (e: MouseEvent) => {
   if (e.button !== 0) {
     return
   }
-  const value = getSliderPosition(e)
+  const value = getSliderValue(e)
   emit('update:modelValue', value)
   emit('dragging', true)
   document.addEventListener('pointermove', startDrag)
@@ -72,7 +84,7 @@ const handleSliderValue = (e: MouseEvent) => {
 }
 
 const startDrag = (e: MouseEvent) => {
-  const value = getSliderPosition(e)
+  const value = getSliderValue(e)
   emit('update:modelValue', value)
 }
 
@@ -93,7 +105,7 @@ const stopDrag = () => {
 
 .bg-track {
   position: absolute;
-  height: 32%;
+  height: 25%;
   background-color: var(--color-slider-track);
   width: 100%;
   border-radius: 24px;
@@ -104,7 +116,7 @@ const stopDrag = () => {
 
 .filled-track {
   position: absolute;
-  height: 64%;
+  height: 50%;
   top: 50%;
   transform: translateY(-50%);
   background-color: var(--color-blue);
