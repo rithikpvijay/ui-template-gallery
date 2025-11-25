@@ -19,6 +19,8 @@ onMounted(() => {
   --color-primary: #fff;
   --color-secondary: #f2f2f2;
   --color-search-bar-hover: #e4e4e4;
+  --color-search-bar-border: #888;
+  --color-border-hover: #333;
   --color-search-bar: #0000000a;
   --color-search-icon: #0000008a;
   --color-blue: #03a9f4;
