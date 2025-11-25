@@ -17,7 +17,7 @@ app.use(pinia)
 
 app.use(router)
 
-const options = {
+const toastConfigOptions = {
   position: 'top-center',
   timeout: 3000,
   closeOnClick: true,
@@ -25,7 +25,7 @@ const options = {
   draggable: true,
 }
 
-app.use(Toast, options)
+app.use(Toast, toastConfigOptions)
 
 app.component('base-icon', BaseIcon)
 

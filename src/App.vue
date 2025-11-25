@@ -35,6 +35,8 @@ onMounted(() => {
   --color-table-content: #00000099;
   --color-terminated: #de8e8c;
   --color-salaried: #2eb52c;
+  --color-validation-error: #ff0000c8;
+  --color-validation-message: #ff4d00f9;
 
   --shadow-outer: 0 4px 8px rgba(0, 0, 0, 0.05);
   --shadow-inner: 0 0 4px rgba(0, 0, 0, 0.15);

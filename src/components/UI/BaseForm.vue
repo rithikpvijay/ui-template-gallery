@@ -1,15 +1,15 @@
 <template>
   <div class="title">
-    <slot name="title"></slot>
+    <slot name="title" />
   </div>
 
   <form @submit.prevent="handleSubmit">
     <div class="form-input">
-      <slot name="input"></slot>
+      <slot name="input" />
     </div>
 
     <button class="form-btn">
-      <slot name="form-btn"> </slot>
+      <slot name="form-btn" />
     </button>
   </form>
 </template>

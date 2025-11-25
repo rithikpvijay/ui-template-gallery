@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import type { User, AuthError } from '@supabase/supabase-js'
 import { supabase } from '@/lib/subapaseClient'
 import { useToast } from 'vue-toastification'
+import { RoutePath } from '@/types/RoutePath'
 import router from '@/router'
 
 const toast = useToast()
@@ -21,7 +22,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
       user.value = data.user
       toast.success('User Signed Up Successfully')
-      router.replace('/sign-in')
+      router.replace(RoutePath.CONTACT_LIST)
     } catch (err: unknown) {
       const e = err as AuthError
       error.value = e.message || 'Something went wrong while signing up'

@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper" ref="menuRef">
     <div class="title-container" @click.stop="handleMenuToggle" :class="{ active: isOpen }">
-      <slot name="title"></slot>
+      <slot name="title" />
     </div>
     <Transition name="fade">
       <div class="menu" v-if="isOpen" @click="handleMenuClick">
-        <slot name="menu"></slot>
+        <slot name="menu" />
       </div>
     </Transition>
   </div>

@@ -89,15 +89,14 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
 import { useAuthStore } from '@/store/auth'
+import { EMAIL_PATTERN, MIN_PASSWORD_LENGTH } from '@/types/FormValidation'
 import AuthProviders from './AuthProviders.vue'
 
 type Field = keyof typeof showInvalidMessage
 
 const authStore = useAuthStore()
-const { isLoading } = storeToRefs(authStore)
 
 const formValues = reactive({
   email: { value: '', isValid: true },
@@ -125,14 +124,12 @@ const handleBlur = (field: Field) => {
 const validateForm = () => {
   isFormValid.value = true
 
-  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-  if (!pattern.test(formValues.email.value)) {
+  if (!EMAIL_PATTERN.test(formValues.email.value)) {
     isFormValid.value = false
     formValues.email.isValid = false
   }
 
-  if (formValues.password.value.length < 6) {
+  if (formValues.password.value.length < MIN_PASSWORD_LENGTH) {
     isFormValid.value = false
     formValues.password.isValid = false
   }
@@ -193,13 +190,13 @@ const handleSignIn = () => {
 
 .error-icon {
   position: absolute;
-  color: rgba(255, 0, 0, 0.785);
+  color: var(--color-validation-error);
   right: 1%;
   top: 45%;
 }
 
 .invalid-message {
-  background-color: rgba(255, 77, 0, 0.975);
+  background-color: var(--color-validation-message);
   color: var(--color-primary);
   font-size: 12px;
   width: fit-content;
