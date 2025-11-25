@@ -15,9 +15,8 @@
 
     <flash-indicators
       :is-video-playing="status.videoPlaying"
-      :forward-indication="status.forwardIndication"
-      :rewind-indication="status.rewindIndication"
-      :play-pause-indication="status.playPauseIndication"
+      :volume-value="volumeValue"
+      :active-indication="activeIndication"
     />
 
     <video
@@ -35,10 +34,11 @@
     </video>
 
     <Transition name="controls">
-      <div class="controls" v-show="status.controlVisible">
+      <div class="controls" v-show="status.controlVisible" @dblclick.stop>
         <base-slider
           hover
           v-model="sliderValue"
+          :thumbColor="'var(--color-blue)'"
           @dragging="status.dragging = $event"
           @dblclick.stop
         />
@@ -59,40 +59,45 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onMounted, reactive, ref, toRefs, watch } from 'vue'
+import { computed, onBeforeMount, onMounted, provide, reactive, ref, toRefs, watch } from 'vue'
 import { Icon } from '@iconify/vue'
 import { handleVisibilityTimeout } from '@/utility/handleVisibilityTimeout'
 import { VIDEO_URL } from '@/types/VideoUrl'
+import { showIndication } from '@/utility/showIndication'
+import type { Indication } from '@/utility/showIndication'
+import { volumeContextKey } from '@/types/VolumeContextKey'
 import FlashIndicators from './FlashIndicators.vue'
 import ActionControllers from './ActionControllers.vue'
 
 const status = reactive({
-  playPauseIndication: false,
-  forwardIndication: false,
-  rewindIndication: false,
-  dragging: false,
+  buffering: false,
   controlVisible: true,
+  dragging: false,
   fullscreen: false,
   videoPlaying: false,
   videoReady: false,
-  buffering: false,
+  volume: false,
 })
 
-const { playPauseIndication, forwardIndication, rewindIndication, controlVisible } = toRefs(status)
+const { controlVisible } = toRefs(status)
 
+const activeIndication = ref<Indication>('')
 const videoRef = ref<HTMLVideoElement | null>(null)
 const fullScreenRef = ref<HTMLElement | null>(null)
 
 const runTime = ref<number | null>(null)
 const currentTime = ref<number | null>(null)
+const iconIndicationTimeout = ref<number | null>(null)
 const controlHideTimeout = ref<number | null>(null)
-const playPauseHideTimeout = ref<number | null>(null)
-const forwardHideTimeout = ref<number | null>(null)
-const rewindHideTimeout = ref<number | null>(null)
 
 const sliderValue = ref(0)
+const volumeValue = ref(100)
+const lastVolumeValue = ref(100)
 const skipSeconds = 5
+const volumeStep = 10
 const controlVisibityTimeMs = 2000
+
+const isMuted = computed(() => volumeValue.value === 0)
 
 watch(
   () => sliderValue.value,
@@ -149,19 +154,39 @@ const handlePlayBack = () => {
   }
 
   handleControlVisibility()
-  handleVisibilityTimeout(playPauseIndication, playPauseHideTimeout)
+  showIndication(activeIndication, iconIndicationTimeout, 'play')
 }
 
 const handleKeyPress = (e: KeyboardEvent) => {
   if (e.key === 'ArrowRight') {
     handleVideoForward()
   }
+
   if (e.key === 'ArrowLeft') {
     handleVideoReplay()
   }
+
   if (e.key === ' ') {
     handlePlayBack()
   }
+
+  if (e.key === 'ArrowUp') {
+    handleVolumeStep(+volumeStep)
+  }
+
+  if (e.key === 'ArrowDown') {
+    handleVolumeStep(-volumeStep)
+  }
+  if (e.key.toLowerCase() === 'm') {
+    handleMuteToggle()
+    showIndication(activeIndication, iconIndicationTimeout, 'volume')
+  }
+}
+
+const handleVolumeStep = (threshold: number) => {
+  volumeValue.value = Math.min(100, Math.max(volumeValue.value + threshold, 0))
+  handleControlVisibility()
+  showIndication(activeIndication, iconIndicationTimeout, 'volume')
 }
 
 const handleVideoForward = () => {
@@ -170,7 +195,7 @@ const handleVideoForward = () => {
   }
   videoRef.value.currentTime += skipSeconds
   handleControlVisibility()
-  handleVisibilityTimeout(forwardIndication, forwardHideTimeout)
+  showIndication(activeIndication, iconIndicationTimeout, 'forward')
 }
 
 const handleVideoReplay = () => {
@@ -179,8 +204,24 @@ const handleVideoReplay = () => {
   }
   videoRef.value.currentTime -= skipSeconds
   handleControlVisibility()
-  handleVisibilityTimeout(rewindIndication, rewindHideTimeout)
+  showIndication(activeIndication, iconIndicationTimeout, 'rewind')
 }
+
+const handleMuteToggle = () => {
+  if (!isMuted.value) {
+    lastVolumeValue.value = volumeValue.value
+    volumeValue.value = 0
+  } else {
+    volumeValue.value = lastVolumeValue.value
+  }
+  handleControlVisibility()
+}
+
+provide(volumeContextKey, {
+  handleMuteToggle,
+  videoRef,
+  volumeValue,
+})
 
 onMounted(() => {
   document.addEventListener('keydown', handleKeyPress)

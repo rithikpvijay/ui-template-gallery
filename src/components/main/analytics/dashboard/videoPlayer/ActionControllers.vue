@@ -17,6 +17,7 @@
       <div class="display-time">
         {{ displayTime }}
       </div>
+      <volume-button />
       <Icon
         :icon="`${props.fullScreen ? 'material-symbols:fullscreen-exit' : 'material-symbols:fullscreen'}`"
         width="24"
@@ -33,6 +34,7 @@ import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { formatTime } from '@/utility/formatTime'
 import type { VideoControllers } from '@/types/VideoConrollers'
+import VolumeButton from './VolumeButton.vue'
 
 interface Props {
   runTime: number | null
@@ -104,7 +106,7 @@ const displayTime = computed(() => {
 .right-controls {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 12px;
 }
 
 .display-time {
@@ -113,6 +115,6 @@ const displayTime = computed(() => {
 }
 
 .play-pause-icon {
-  margin-right: 24px;
+  margin-right: 12px;
 }
 </style>
