@@ -135,7 +135,7 @@ const logOutVisibility = computed(() => {
 }
 
 .search-bar {
-  padding-right: 8px;
+  margin-right: 8px;
 }
 
 .log-out {
