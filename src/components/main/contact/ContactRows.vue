@@ -17,10 +17,10 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/store/user'
 import type { User } from '@/types/User'
-import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
 
 interface Props {
   user: User

@@ -38,6 +38,7 @@ onMounted(() => {
   --color-terminated: #de8e8c;
   --color-salaried: #2eb52c;
   --color-slider-track: #ffffff80;
+  --color-mandatory: #ff0000;
 
   --shadow-outer: 0 4px 8px rgba(0, 0, 0, 0.05);
   --shadow-inner: 0 0 4px rgba(0, 0, 0, 0.15);

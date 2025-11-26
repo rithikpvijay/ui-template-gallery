@@ -6,7 +6,7 @@
 
         <template #input>
           <div class="register-input">
-            <label for="email">Email*</label>
+            <label for="email">Email <span class="mandatory">*</span></label>
             <input
               type="text"
               id="email"
@@ -29,7 +29,7 @@
           </div>
 
           <div class="register-input">
-            <label for="password">Password*</label>
+            <label for="password">Password <span class="mandatory">*</span></label>
             <input
               type="password"
               id="password"
@@ -53,7 +53,7 @@
           </div>
 
           <div class="register-input">
-            <label for="conform-password">Confirm Password*</label>
+            <label for="conform-password">Confirm Password <span class="mandatory">*</span></label>
             <input
               type="password"
               v-model="formValues.confirmPassword.value"
@@ -84,11 +84,15 @@
       <router-link to="/sign-in" class="sign-in">Have an account? Sign In</router-link>
       <auth-providers type="sign-in"></auth-providers>
     </div>
+    <div class="sign-up-overlay" v-if="isSignInLoading">
+      <Icon icon="line-md:loading-loop" width="86" height="86" class="loading" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
 import { useAuthStore } from '@/store/auth'
 import AuthProviders from './AuthProviders.vue'
@@ -96,7 +100,7 @@ import AuthProviders from './AuthProviders.vue'
 type Field = keyof typeof showInvalidMessage
 
 const authStore = useAuthStore()
-
+const { isSignInLoading } = storeToRefs(authStore)
 const formValues = reactive({
   email: { value: '', isValid: true },
   password: { value: '', isValid: true },
@@ -207,5 +211,24 @@ const handleSignUp = () => {
   border-radius: 6px;
   position: absolute;
   bottom: -20px;
+}
+
+.sign-up-overlay {
+  position: fixed;
+  height: calc(100vh - 56.5px);
+  width: 100vw;
+  backdrop-filter: blur(2px);
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-blue);
+}
+
+.mandatory {
+  color: var(--color-mandatory);
 }
 </style>

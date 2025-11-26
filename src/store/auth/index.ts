@@ -9,7 +9,8 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null)
   const userSession = ref<User | null>(null)
   const error = ref<string | null>(null)
-  const isLoading = ref(false)
+  const isSignInLoading = ref(false)
+  const isLogoutLoading = ref(false)
   const toast = useToast()
 
   const initAuth = async () => {
@@ -23,7 +24,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const signUp = async (email: string, password: string) => {
     try {
-      isLoading.value = true
+      isSignInLoading.value = true
       const { error: authError } = await supabase.auth.signUp({ email, password })
       if (authError) {
         throw authError
@@ -35,13 +36,13 @@ export const useAuthStore = defineStore('auth', () => {
       error.value = e.message || 'Something went wrong while signing up'
       toast.error('Something went wrong')
     } finally {
-      isLoading.value = false
+      isSignInLoading.value = false
     }
   }
 
   const signIn = async (email: string, password: string) => {
     try {
-      isLoading.value = true
+      isSignInLoading.value = true
       const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password })
 
       if (authError) {
@@ -57,13 +58,13 @@ export const useAuthStore = defineStore('auth', () => {
         toast.error(err.message)
       }
     } finally {
-      isLoading.value = false
+      isSignInLoading.value = false
     }
   }
 
   const logout = async () => {
     try {
-      isLoading.value = true
+      isLogoutLoading.value = true
       const { error } = await supabase.auth.signOut()
       if (error) {
         throw new Error('Something wen wrong')
@@ -75,9 +76,17 @@ export const useAuthStore = defineStore('auth', () => {
         error.value = err.message
       }
     } finally {
-      isLoading.value = false
+      isLogoutLoading.value = false
     }
   }
 
-  return { signUp, isLoading, signIn, logout, userSession, initAuth }
+  return {
+    initAuth,
+    isLogoutLoading,
+    isSignInLoading,
+    logout,
+    signIn,
+    signUp,
+    userSession,
+  }
 })

@@ -8,12 +8,12 @@
 
         <template #input>
           <div class="auth-form-input">
-            <label for="email">Email:*</label>
+            <label for="email">Email: <span class="mandatory">*</span></label>
             <input type="text" id="email" v-model="formValues.email" />
           </div>
 
           <div class="auth-form-input">
-            <label for="password">Password</label>
+            <label for="password">Password <span class="mandatory">*</span></label>
             <input type="password" id="password" v-model="formValues.password" />
           </div>
 
@@ -29,15 +29,21 @@
       <div class="auth-forgot-link">Forgot password?</div>
       <auth-providers type="resigter"></auth-providers>
     </div>
+    <div class="sign-in-overlay" v-if="isSignInLoading">
+      <Icon icon="line-md:loading-loop" width="86" height="86" class="loading" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import AuthProviders from './AuthProviders.vue'
+import { storeToRefs } from 'pinia'
+import { Icon } from '@iconify/vue'
 import { useToast } from 'vue-toastification'
 import { useAuthStore } from '@/store/auth'
+import AuthProviders from './AuthProviders.vue'
 
+const { isSignInLoading } = storeToRefs(useAuthStore())
 const toast = useToast()
 const authStore = useAuthStore()
 const isFormValid = ref(true)
@@ -111,5 +117,24 @@ const handleSignUp = () => {
   text-decoration: underline;
   margin-top: 20px;
   text-align: center;
+}
+
+.sign-in-overlay {
+  position: fixed;
+  height: calc(100vh - 56.5px);
+  width: 100vw;
+  backdrop-filter: blur(2px);
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-blue);
+}
+
+.mandatory {
+  color: var(--color-mandatory);
 }
 </style>
