@@ -43,9 +43,9 @@ import { useToast } from 'vue-toastification'
 import { useAuthStore } from '@/store/auth'
 import AuthProviders from './AuthProviders.vue'
 
+const authStore = useAuthStore()
 const { isSignInLoading } = storeToRefs(useAuthStore())
 const toast = useToast()
-const authStore = useAuthStore()
 const isFormValid = ref(true)
 const formValues = reactive({
   email: '',
