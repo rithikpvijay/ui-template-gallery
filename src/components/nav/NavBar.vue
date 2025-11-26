@@ -31,7 +31,7 @@
         </template>
       </base-menu>
     </div>
-    <div class="overlay" v-if="isLoading">
+    <div class="overlay" v-if="isLogoutLoading">
       <Icon icon="line-md:loading-loop" width="86" height="86" class="loading" />
     </div>
   </div>
@@ -46,7 +46,7 @@ import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 
 const authStore = useAuthStore()
-const { isLoading } = storeToRefs(authStore)
+const { isLogoutLoading } = storeToRefs(authStore)
 
 const handleLogout = () => {
   authStore.logout()
@@ -150,8 +150,6 @@ const logOutVisibility = computed(() => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  align-items: center;
-  justify-content: center;
   color: var(--color-blue);
 }
 
