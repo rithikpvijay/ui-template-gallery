@@ -1,9 +1,9 @@
 <template>
   <div class="container-wrapper" ref="menuRef">
     <div class="filter-menu-heading">
-      <slot name="title"></slot>
+      <slot name="title" />
       <div @click="handleOpen">
-        <slot name="trigger"></slot>
+        <slot name="trigger" />
       </div>
     </div>
 
@@ -15,7 +15,7 @@
             <p>Select All</p>
           </div>
           <div class="options">
-            <slot name="filter-menu"></slot>
+            <slot name="filter-menu" />
           </div>
         </div>
         <div class="menu-container-buttons">
