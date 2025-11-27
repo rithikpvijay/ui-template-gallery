@@ -8,13 +8,15 @@ export interface Status {
   videoPlaying?: boolean
   videoReady?: boolean
   volume?: boolean
-  volumeFocus?: boolean
+  playbackSpeed?: boolean
 }
 
-interface volumeContext {
+interface videoContext {
+  handleControlVisibility: () => void
   handleMuteToggle: () => void
+  status: Status
   videoRef: Ref<HTMLVideoElement | null>
   volumeValue: Ref<number>
 }
 
-export const volumeContextKey: InjectionKey<volumeContext> = Symbol('videoContextKey')
+export const videoContextKey: InjectionKey<videoContext> = Symbol('videoContextKey')

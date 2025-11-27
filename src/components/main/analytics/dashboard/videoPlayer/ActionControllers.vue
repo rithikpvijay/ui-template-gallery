@@ -12,12 +12,13 @@
         @dblclick.stop
         style="color: var(--color-primary)"
       />
+      <volume-button />
     </div>
     <div class="right-controls">
       <div class="display-time">
         {{ displayTime }}
       </div>
-      <volume-button />
+      <playback-speed></playback-speed>
       <Icon
         :icon="`${props.fullScreen ? 'material-symbols:fullscreen-exit' : 'material-symbols:fullscreen'}`"
         width="24"
@@ -35,6 +36,7 @@ import { Icon } from '@iconify/vue'
 import { formatTime } from '@/utility/formatTime'
 import type { VideoControllers } from '@/types/VideoConrollers'
 import VolumeButton from './VolumeButton.vue'
+import PlaybackSpeed from './PlaybackSpeed.vue'
 
 interface Props {
   runTime: number | null
@@ -106,7 +108,7 @@ const displayTime = computed(() => {
 .right-controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 24px;
 }
 
 .display-time {

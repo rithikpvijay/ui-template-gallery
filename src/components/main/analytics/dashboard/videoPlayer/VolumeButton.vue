@@ -24,14 +24,14 @@
 <script setup lang="ts">
 import { inject, watch } from 'vue'
 import { Icon } from '@iconify/vue'
-import { volumeContextKey } from '@/types/VolumeContextKey'
+import { videoContextKey } from '@/types/VolumeContextKey'
 
-const volumeContext = inject(volumeContextKey)
-if (!volumeContext) {
+const videoContext = inject(videoContextKey)
+if (!videoContext) {
   throw new Error('Video Context not provided')
 }
 
-const { videoRef, handleMuteToggle, volumeValue } = volumeContext
+const { videoRef, handleMuteToggle, volumeValue } = videoContext
 
 watch(
   () => volumeValue.value,

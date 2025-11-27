@@ -41,6 +41,8 @@ onMounted(() => {
   --color-validation-message: #ff4d00f9;
   --color-slider-track: #ffffff80;
   --color-mandatory: #ff0000;
+  --color-playback: #1c1c1ce6;
+  --color-playback-hover: #4a4a4ae6;
 
   --shadow-outer: 0 4px 8px rgba(0, 0, 0, 0.05);
   --shadow-inner: 0 0 4px rgba(0, 0, 0, 0.15);

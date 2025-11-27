@@ -2,7 +2,7 @@
   <div
     class="video-container"
     ref="fullScreenRef"
-    @mousemove="handleControlVisibility"
+    @mousemove="handleMouseMove"
     @dblclick="handleFullScreen"
   >
     <Icon
@@ -65,7 +65,7 @@ import { handleVisibilityTimeout } from '@/utility/handleVisibilityTimeout'
 import { VIDEO_URL } from '@/types/VideoUrl'
 import { showIndication } from '@/utility/showIndication'
 import type { Indication } from '@/utility/showIndication'
-import { volumeContextKey } from '@/types/VolumeContextKey'
+import { videoContextKey } from '@/types/VolumeContextKey'
 import FlashIndicators from './FlashIndicators.vue'
 import ActionControllers from './ActionControllers.vue'
 
@@ -77,6 +77,7 @@ const status = reactive({
   videoPlaying: false,
   videoReady: false,
   volume: false,
+  playbackSpeed: false,
 })
 
 const { controlVisible } = toRefs(status)
@@ -120,6 +121,13 @@ const syncSlider = () => {
   currentTime.value = videoRef.value.currentTime
 }
 
+const handleMouseMove = () => {
+  if (status.playbackSpeed) {
+    return
+  }
+  handleControlVisibility()
+}
+
 const handleMetaData = () => {
   if (!videoRef.value) {
     return
@@ -128,6 +136,13 @@ const handleMetaData = () => {
 }
 
 const handleControlVisibility = () => {
+  if (status.playbackSpeed) {
+    controlVisible.value = true
+    if (controlHideTimeout.value) {
+      clearTimeout(controlHideTimeout.value)
+    }
+    return
+  }
   handleVisibilityTimeout(controlVisible, controlHideTimeout, controlVisibityTimeMs)
 }
 
@@ -217,8 +232,10 @@ const handleMuteToggle = () => {
   handleControlVisibility()
 }
 
-provide(volumeContextKey, {
+provide(videoContextKey, {
+  handleControlVisibility,
   handleMuteToggle,
+  status,
   videoRef,
   volumeValue,
 })
