@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper" ref="menuRef">
-    <div class="title-container" @click="handleMenuToggle" :class="{ active: isOpen }">
-      <slot name="title"></slot>
+    <div class="title-container" @click.stop="handleMenuToggle" :class="{ active: isOpen }">
+      <slot name="title" />
     </div>
     <Transition name="fade">
       <div class="menu" v-if="isOpen" @click="handleMenuClick">
-        <slot name="menu"></slot>
+        <slot name="menu" />
       </div>
     </Transition>
   </div>
@@ -25,10 +25,8 @@ function handleMenuToggle() {
   isOpen.value = !isOpen.value
 }
 
-function handleClickOutside(e: MouseEvent) {
-  if (menuRef.value && !menuRef.value.contains(e.target as Node)) {
-    isOpen.value = false
-  }
+function handleClick() {
+  isOpen.value = false
 }
 
 function handleKeyDown(e: KeyboardEvent) {
@@ -38,12 +36,12 @@ function handleKeyDown(e: KeyboardEvent) {
 }
 
 onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
+  document.addEventListener('click', handleClick)
   document.addEventListener('keydown', handleKeyDown)
 })
 
 onBeforeUnmount(() => {
-  document.removeEventListener('click', handleClickOutside)
+  document.removeEventListener('click', handleClick)
   document.removeEventListener('keydown', handleKeyDown)
 })
 </script>
