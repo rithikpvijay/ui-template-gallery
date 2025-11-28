@@ -37,6 +37,7 @@ import { reactive, ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { useAuthStore } from '@/store/auth'
 import AuthProviders from './AuthProviders.vue'
+import { EMAIL_REGEX_PATTERN } from '@/types/FormValidation'
 
 const toast = useToast()
 const authStore = useAuthStore()
@@ -49,8 +50,7 @@ const formValues = reactive({
 const validateForm = () => {
   isFormValid.value = true
 
-  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!pattern.test(formValues.email)) {
+  if (!EMAIL_REGEX_PATTERN.test(formValues.email)) {
     isFormValid.value = false
   }
 }
