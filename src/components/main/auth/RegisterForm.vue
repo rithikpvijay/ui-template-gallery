@@ -81,7 +81,7 @@
         <template #form-btn> Register </template>
       </base-form>
 
-      <router-link to="/sign-in" class="sign-in">Have an account? Sign In</router-link>
+      <router-link :to="RoutePath.SIGN_IN" class="sign-in">Have an account? Sign In</router-link>
       <auth-providers type="sign-in" />
     </div>
   </div>
@@ -93,6 +93,7 @@ import { Icon } from '@iconify/vue'
 import { useAuthStore } from '@/store/auth'
 import { EMAIL_REGEX_PATTERN, MIN_PASSWORD_LENGTH } from '@/types/FormValidation'
 import AuthProviders from './AuthProviders.vue'
+import { RoutePath } from '@/types/RoutePath'
 
 type Field = keyof typeof showInvalidMessage
 

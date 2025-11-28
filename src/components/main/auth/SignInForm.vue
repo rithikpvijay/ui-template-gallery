@@ -36,8 +36,8 @@
 import { reactive, ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import { useAuthStore } from '@/store/auth'
-import AuthProviders from './AuthProviders.vue'
 import { EMAIL_REGEX_PATTERN } from '@/types/FormValidation'
+import AuthProviders from './AuthProviders.vue'
 
 const toast = useToast()
 const authStore = useAuthStore()
