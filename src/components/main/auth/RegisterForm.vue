@@ -1,7 +1,7 @@
 <template>
   <div class="register-container">
     <div class="register-box">
-      <base-form @submit="handleSignIn">
+      <base-form @submit="handleSignUp">
         <template #title>Register</template>
 
         <template #input>
@@ -81,7 +81,7 @@
         <template #form-btn> Register </template>
       </base-form>
 
-      <div class="sign-in">Have an account? Sign In</div>
+      <router-link to="/sign-in" class="sign-in">Have an account? Sign In</router-link>
       <auth-providers type="sign-in" />
     </div>
   </div>
@@ -140,7 +140,7 @@ const validateForm = () => {
   }
 }
 
-const handleSignIn = () => {
+const handleSignUp = () => {
   validateForm()
 
   if (!isFormValid.value) {
@@ -179,6 +179,8 @@ const handleSignIn = () => {
 }
 
 .sign-in {
+  display: inline-block;
+  width: 100%;
   text-align: center;
   font-size: 12px;
   margin-top: 24px;
