@@ -14,12 +14,16 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { CSSProperties } from 'vue'
+import { ElementPosition } from '@/types/ElementPosition'
+import { getElementPosition } from '@/utility/getElementPosition'
 
 interface Props {
-  position?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
+  position?: ElementPosition
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  position: ElementPosition.BOTTOM_CENTER,
+})
 
 const isOpen = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
@@ -57,18 +61,8 @@ const menuStyle = computed(() => {
     backgroundColor: 'var(--color-primary)',
   })
 
-  if (props.position) {
-    if (props.position === 'bottom-right') {
-      return { ...baseStyle.value, top: '100%', right: '0' }
-    }
-    if (props.position === 'top-right') {
-      return { ...baseStyle.value, bottom: '100%', right: '0' }
-    }
-    if (props.position === 'top-left') {
-      return { ...baseStyle.value, bottom: '100%', left: '0' }
-    }
-  }
-  return { ...baseStyle.value, top: '100%', left: '0' }
+  const position = getElementPosition(props.position)
+  return { ...baseStyle.value, ...position }
 })
 
 onMounted(() => {

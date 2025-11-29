@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       user.value = data.user
       toast.success('Logged In Successfully')
-      router.replace('/')
+      router.replace(RoutePath.HOME)
     } catch (err: unknown) {
       if (err instanceof Error) {
         error.value = err.message
@@ -60,7 +60,7 @@ export const useAuthStore = defineStore('auth', () => {
         throw new Error('Something wen wrong')
       }
       toast.success('Logged out')
-      router.replace('/sign-in')
+      router.replace(RoutePath.SIGN_IN)
     } catch (err: unknown) {
       if (err instanceof Error) {
         error.value = err.message
