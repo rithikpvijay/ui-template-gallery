@@ -26,11 +26,11 @@ router.beforeEach((to) => {
   const authStore = useAuthStore()
 
   if (to.meta.requiresAuth && !authStore.userSession) {
-    return '/sign-in'
+    return RoutePath.SIGN_IN
   }
 
   if (to.meta.guestOnly && authStore.userSession) {
-    return '/'
+    return RoutePath.HOME
   }
 })
 
