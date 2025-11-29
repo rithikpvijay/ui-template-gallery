@@ -30,20 +30,23 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { CSSProperties } from 'vue'
+import { ElementPosition } from '@/types/ElementPosition'
+import { getElementPosition } from '@/utility/getElementPosition'
 
 interface Props {
   header: string
-  position?: 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'
   target?: HTMLElement[] | null
+  position?: ElementPosition
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  position: ElementPosition.BOTTOM_CENTER,
+})
 const menuRef = ref<HTMLElement | null>(null)
 const isOpen = ref(false)
 const menuOpenDelay = 150
 
 const filterMenuStyle = computed(() => {
-  let targetWidth
   const baseStyle = ref<CSSProperties>({
     position: 'absolute',
     boxShadow: 'var(--shadow-menu-filter)',
@@ -59,27 +62,8 @@ const filterMenuStyle = computed(() => {
     fontWeight: '400',
   })
 
-  if (props.target) {
-    targetWidth = props.target[0]?.offsetWidth
-  }
-
-  if (props.position === 'bottom-end') {
-    return {
-      ...baseStyle.value,
-      top: '100%',
-      left: `calc(${targetWidth}px - ${baseStyle.value.width})`,
-    }
-  }
-
-  if (props.position === 'top-start') {
-    return { ...baseStyle.value, bottom: '100%', left: '0' }
-  }
-
-  if (props.position === 'top-end') {
-    return { ...baseStyle.value, bottom: '100%', right: '0' }
-  }
-
-  return { ...baseStyle.value, top: '100%', left: '0' }
+  const position = getElementPosition(props.position)
+  return { ...baseStyle.value, ...position }
 })
 
 const handleClose = () => {
@@ -117,6 +101,7 @@ onBeforeUnmount(() => {
   position: relative;
   display: flex;
   gap: 4px;
+  width: 100%;
 }
 
 .filter-menu-heading {
