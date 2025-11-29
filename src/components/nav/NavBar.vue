@@ -17,7 +17,7 @@
       <div class="nav-icon nav-item">
         <Icon icon="mdi:bell-outline" width="20" height="16" />
       </div>
-      <base-menu position="bottom-right">
+      <base-menu position="bottom-right" :class="logOutVisibility">
         <template #title>
           <div class="image-container nav-item">
             <img :src="userImage" alt="user-image" class="image" />
@@ -38,6 +38,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
 import BaseSearchBar from '@/components/UI/BaseSearchBar.vue'
@@ -50,6 +51,12 @@ const { isLoading } = storeToRefs(authStore)
 const handleLogout = () => {
   authStore.logout()
 }
+
+const logOutVisibility = computed(() => {
+  return {
+    'is-visible': !authStore.userSession,
+  }
+})
 </script>
 
 <style scoped>
@@ -74,6 +81,35 @@ const handleLogout = () => {
   font-weight: 500;
 }
 
+.image-container {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--color-image-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.image-container:hover {
+  border-color: var(--color-blue);
+}
+
+.image {
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 50%;
+}
+
+.nav-utilities {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
 .nav-icon {
   border-radius: 50%;
   width: 28px;
@@ -88,33 +124,10 @@ const handleLogout = () => {
   background-color: var(--color-search-bar-hover);
 }
 
-.image-container {
-  width: 26px;
-  height: 26px;
-  border: 1px solid var(--color-image-border);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.nav-utilities {
+.nav-item {
   display: flex;
   align-items: center;
   margin-right: 8px;
-}
-
-.image-container:hover {
-  border-color: var(--color-blue);
-}
-
-.image {
-  width: 26px;
-  height: 26px;
-  object-fit: cover;
-  object-position: top;
-  border-radius: 50%;
 }
 
 .search-bar {
@@ -145,5 +158,9 @@ const handleLogout = () => {
   top: 8%;
   left: 17%;
   backdrop-filter: blur(2px);
+}
+
+.is-visible {
+  visibility: hidden;
 }
 </style>
