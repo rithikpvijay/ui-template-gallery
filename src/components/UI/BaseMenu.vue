@@ -33,7 +33,7 @@ interface Props {
   hoverColor?: string
   top?: string
   left?: string
-  width: string
+  width?: string
   position?:
     | 'bottom-left'
     | 'bottom-right'

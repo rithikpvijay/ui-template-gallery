@@ -29,9 +29,7 @@
       @loadeddata="status.videoReady = true"
       @waiting="status.buffering = true"
       @playing="status.buffering = false"
-    >
-      <source :src="VIDEO_URL" type="video/mp4" />
-    </video>
+    />
 
     <Transition name="controls">
       <div class="controls" v-show="status.controlVisible" @dblclick.stop>
@@ -61,8 +59,9 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, onMounted, provide, reactive, ref, toRefs, watch } from 'vue'
 import { Icon } from '@iconify/vue'
+import Hls from 'hls.js'
 import { handleVisibilityTimeout } from '@/utility/handleVisibilityTimeout'
-import { VIDEO_URL } from '@/types/VideoUrl'
+import { VIDEO_URL_HLS } from '@/types/VideoUrl'
 import { showIndication } from '@/utility/showIndication'
 import type { Indication } from '@/utility/showIndication'
 import { videoContextKey } from '@/types/VolumeContextKey'
@@ -242,6 +241,17 @@ provide(videoContextKey, {
 
 onMounted(() => {
   document.addEventListener('keydown', handleKeyPress)
+
+  if (!videoRef.value) {
+    return
+  }
+  if (Hls.isSupported()) {
+    const hlsInstance = new Hls()
+    hlsInstance.loadSource(VIDEO_URL_HLS)
+    hlsInstance.attachMedia(videoRef.value)
+  } else if (videoRef.value.canPlayType('application/vnd.apple.mpegurl')) {
+    videoRef.value.src = VIDEO_URL_HLS
+  }
 })
 
 onBeforeMount(() => {
