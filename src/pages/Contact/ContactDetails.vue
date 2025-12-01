@@ -9,7 +9,7 @@
       <div class="details-btn-flex">
         <p>Details</p>
         <div class="edit-save-btn" @click="handleFormEditing" v-if="isFormDisabled">
-          <Icon icon="material-symbols:edit" width="16" height="16" />
+          <Icon icon="material-symbols:edit" width="14" height="14" />
           <p>Edit</p>
         </div>
         <div v-if="!isFormDisabled">
@@ -195,23 +195,21 @@ import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import { useUserStore } from '@/store/user'
+import { RoutePath } from '@/types/RoutePath'
 
 const props = defineProps<{ id: string }>()
 const userStore = useUserStore()
 const isFormDisabled = ref(true)
 const originalData = computed(() => userStore.getUserById(+props.id))
 const formValues = reactive({ ...originalData.value })
-const fullName = ref<string | undefined>(originalData.value?.name)
-const statusValue = ref<string | undefined>(originalData.value?.status)
 const router = useRouter()
+const fullName = computed(() => originalData.value?.name)
 
 watch(originalData, (newValue) => {
   if (!newValue) {
     return
   }
   Object.assign(formValues, newValue)
-  fullName.value = newValue.name
-  statusValue.value = newValue.status
 })
 
 const firstName = computed({
@@ -240,6 +238,15 @@ const lastName = computed({
   },
 })
 
+const statusValue = computed({
+  get() {
+    return formValues.status
+  },
+  set(value) {
+    formValues.status = value
+  },
+})
+
 const statusDotColor = computed(() => {
   let status = statusValue.value
   if (isFormDisabled.value) {
@@ -257,7 +264,7 @@ const statusTextColor = computed(() => {
 })
 
 const handleRouteBack = () => {
-  router.replace('/contact-list')
+  router.replace(RoutePath.CONTACT_LIST)
 }
 
 const handleFormEditing = () => {
@@ -266,7 +273,6 @@ const handleFormEditing = () => {
 
 const handleFormSave = () => {
   isFormDisabled.value = true
-  formValues.status = statusValue.value
   userStore.updateUser(+props.id, formValues)
 }
 
@@ -383,6 +389,7 @@ const handleStatus = (value: string) => {
   position: absolute;
   left: 12px;
   z-index: 1;
+  color: var(--color-table-content);
 }
 
 .status-container,
@@ -414,6 +421,7 @@ const handleStatus = (value: string) => {
 .contact-details-form .disabled {
   background-color: var(--color-primary);
   border: none;
+  color: var(--color-text);
 }
 
 .contact-details-form .disabled:hover {
@@ -484,21 +492,17 @@ const handleStatus = (value: string) => {
 }
 
 .menu-title {
-  padding: 8px 12px 4px 0px;
+  padding: 14px 12px 4px 12px;
   width: 225px;
   display: flex;
   align-items: center;
   gap: 4px;
   font-weight: 400;
   font-size: 12px;
-}
-
-.menu-title-static {
-  padding: 14px 12px 0px 12px;
+  cursor: pointer;
 }
 
 .menu-item {
-  padding: 4px 12px 4px 12px;
   width: 250px;
   display: flex;
   align-items: center;

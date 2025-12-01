@@ -19,6 +19,8 @@ onMounted(() => {
   --color-primary: #fff;
   --color-secondary: #f2f2f2;
   --color-search-bar-hover: #e4e4e4;
+  --color-search-bar-border: #888;
+  --color-border-hover: #333;
   --color-search-bar: #0000000a;
   --color-search-icon: #0000008a;
   --color-blue: #03a9f4;
@@ -37,6 +39,10 @@ onMounted(() => {
   --color-salaried: #2eb52c;
   --color-validation-error: #ff0000c8;
   --color-validation-message: #ff4d00f9;
+  --color-slider-track: #ffffff80;
+  --color-mandatory: #ff0000;
+  --color-playback: #1c1c1ce6;
+  --color-playback-hover: #4a4a4ae6;
 
   --shadow-outer: 0 4px 8px rgba(0, 0, 0, 0.05);
   --shadow-inner: 0 0 4px rgba(0, 0, 0, 0.15);

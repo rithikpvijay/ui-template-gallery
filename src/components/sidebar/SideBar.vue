@@ -18,11 +18,15 @@
 <script setup lang="ts">
 import type { SideBarItem } from '@/types/SideBarItem'
 import ListItem from './ListItem.vue'
+import { RoutePath } from '@/types/RoutePath'
 
 const items: SideBarItem[] = [
   {
     title: 'CRM',
-    lists: [{ text: 'Contact List' }, { text: 'Contact Details' }],
+    lists: [
+      { text: 'Contact List', navigateTo: RoutePath.CONTACT_LIST },
+      { text: 'Contact Details', navigateTo: RoutePath.CONTACT_DETAILS },
+    ],
     icon: 'mdi:user',
   },
   {
@@ -32,12 +36,20 @@ const items: SideBarItem[] = [
   },
   {
     title: 'Analytics',
-    lists: [{ text: 'Dashboard' }, { text: 'Sales Analysis' }, { text: 'Geography' }],
+    lists: [
+      { text: 'Dashboard', navigateTo: RoutePath.DASHBOARD },
+      { text: 'Sales Analysis' },
+      { text: 'Geography' },
+    ],
     icon: 'material-symbols:analytics-outline-sharp',
   },
   {
     title: 'Authentication',
-    lists: [{ text: 'Sign In Form' }, { text: 'Register Form' }, { text: 'Reset Password Form' }],
+    lists: [
+      { text: 'Sign In Form', navigateTo: RoutePath.SIGN_IN },
+      { text: 'Register Form', navigateTo: RoutePath.SIGN_UP },
+      { text: 'Reset Password Form' },
+    ],
     icon: 'mdi:user-box',
   },
   {
