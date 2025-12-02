@@ -18,7 +18,8 @@
       <div class="display-time">
         {{ displayTime }}
       </div>
-      <playback-speed></playback-speed>
+      <playback-speed />
+      <video-quality />
       <Icon
         :icon="`${props.fullScreen ? 'material-symbols:fullscreen-exit' : 'material-symbols:fullscreen'}`"
         width="24"
@@ -37,6 +38,7 @@ import { formatTime } from '@/utility/formatTime'
 import type { VideoControllers } from '@/types/VideoConrollers'
 import VolumeButton from './VolumeButton.vue'
 import PlaybackSpeed from './PlaybackSpeed.vue'
+import VideoQuality from './VideoQuality.vue'
 
 interface Props {
   runTime: number | null

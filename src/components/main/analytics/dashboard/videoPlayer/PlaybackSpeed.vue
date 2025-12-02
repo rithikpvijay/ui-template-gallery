@@ -1,21 +1,15 @@
 <template>
   <div class="playback-speed-container">
     <base-menu
-      :position="'top-center'"
+      position="top-center"
       :backgroundColor="'var(--color-playback)'"
       :color="'var(--color-primary)'"
       :hoverColor="'var(--color-playback-hover)'"
-      @menuClose="handleControlOnPlayBack(false)"
-      @menuToggle="handleControlOnPlayBack"
+      @menuClose="handleControlOnActionMenu"
+      @menuToggle="handleControlOnActionMenu"
     >
       <template #title>
-        <Icon
-          icon="tabler:brand-speedtest"
-          width="24"
-          height="24"
-          class="playback-speed-icon"
-          @click="handleControlOnPlayBack(true)"
-        />
+        <Icon icon="tabler:brand-speedtest" width="24" height="24" class="playback-speed-icon" />
       </template>
 
       <template #menu>
@@ -94,11 +88,6 @@ if (!videoContext) {
   throw new Error('Video context not provided')
 }
 
-const handleControlOnPlayBack = (value: boolean) => {
-  videoContext.status.playbackSpeed = value
-  videoContext.handleControlVisibility()
-}
-
 const handlePlayBackSpeed = (playbackSpeed: number) => {
   if (!videoContext.videoRef.value) {
     return
@@ -106,6 +95,11 @@ const handlePlayBackSpeed = (playbackSpeed: number) => {
   videoContext.videoRef.value.playbackRate = playbackSpeed
   selectedValue.value = playbackSpeed
   selectedIcon.value = playbackSpeed
+}
+
+const handleControlOnActionMenu = (value: boolean) => {
+  videoContext.status.playbackSpeedMenu = value
+  videoContext.handleControlVisibility()
 }
 </script>
 

@@ -5,17 +5,17 @@
     </div>
     <Transition name="fade">
       <div
+        v-if="isOpen"
+        @click="handleMenuItemClick"
         class="menu"
         :style="{
           ...menuStyle,
           '--menu-hover': props.hoverColor || 'var(--color-heading-hover)',
           backgroundColor: props.backgroundColor,
           color: props.color,
-          top: props.top,
-          left: props.left,
+          ...(props.top !== undefined && { top: props.top }),
+          ...(props.left !== undefined && { left: props.left }),
         }"
-        v-if="isOpen"
-        @click="handleMenuClick"
       >
         <slot name="menu"></slot>
       </div>
@@ -45,12 +45,15 @@ interface Props {
 
 const props = defineProps<Props>()
 const isOpen = ref(false)
-const emit = defineEmits<{ (e: 'menuClose'): void; (e: 'menuToggle', value: boolean): void }>()
+const emit = defineEmits<{
+  (e: 'menuClose', value: boolean): void
+  (e: 'menuToggle', value: boolean): void
+}>()
 const menuRef = ref<HTMLElement | null>(null)
 
-function handleMenuClick() {
+function handleMenuItemClick() {
   isOpen.value = false
-  emit('menuClose')
+  emit('menuClose', isOpen.value)
 }
 
 function handleMenuToggle() {
@@ -61,7 +64,7 @@ function handleMenuToggle() {
 function handleClickOutside(e: MouseEvent) {
   if (menuRef.value && !menuRef.value.contains(e.target as Node)) {
     isOpen.value = false
-    emit('menuClose')
+    emit('menuClose', isOpen.value)
   }
 }
 
@@ -95,7 +98,7 @@ const menuStyle = computed(() => {
     }
 
     if (props.position === 'top-center') {
-      return { ...baseStyle.value, bottom: '100%', left: '50%', transform: 'translateX(-50%)' }
+      return { ...baseStyle.value, bottom: '100%', transform: 'translateX(-50%)', left: '50%' }
     }
     if (props.position === 'bottom-center') {
       return { ...baseStyle.value, top: '100%', left: '50%', transform: 'translateX(-50%)' }
