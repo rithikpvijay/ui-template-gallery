@@ -1,8 +1,8 @@
 <template>
   <div
     class="video-container"
-    ref="fullScreenRef"
-    @mousemove="handleMouseMove"
+    ref="videoWrapperRef"
+    @mousemove="handleControlVisibility"
     @dblclick="handleFullScreen"
   >
     <Icon
@@ -57,9 +57,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted, provide, reactive, ref, toRefs, watch } from 'vue'
+import {
+  computed,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  reactive,
+  ref,
+  shallowRef,
+  toRefs,
+  watch,
+} from 'vue'
 import { Icon } from '@iconify/vue'
-import Hls from 'hls.js'
+import Hls, { Level } from 'hls.js'
 import { handleVisibilityTimeout } from '@/utility/handleVisibilityTimeout'
 import { VIDEO_URL_HLS } from '@/types/VideoUrl'
 import { showIndication } from '@/utility/showIndication'
@@ -76,14 +86,17 @@ const status = reactive({
   videoPlaying: false,
   videoReady: false,
   volume: false,
-  playbackSpeed: false,
+  playbackSpeedMenu: false,
+  qualityOptionsMenu: false,
 })
 
 const { controlVisible } = toRefs(status)
-
+const actionMenu = computed(() => status.playbackSpeedMenu || status.qualityOptionsMenu)
+const hlsInstance = shallowRef<Hls | null>(null)
+const hlsLevel = shallowRef<Level[]>([])
 const activeIndication = ref<Indication>('')
 const videoRef = ref<HTMLVideoElement | null>(null)
-const fullScreenRef = ref<HTMLElement | null>(null)
+const videoWrapperRef = ref<HTMLElement | null>(null)
 
 const runTime = ref<number | null>(null)
 const currentTime = ref<number | null>(null)
@@ -120,13 +133,6 @@ const syncSlider = () => {
   currentTime.value = videoRef.value.currentTime
 }
 
-const handleMouseMove = () => {
-  if (status.playbackSpeed) {
-    return
-  }
-  handleControlVisibility()
-}
-
 const handleMetaData = () => {
   if (!videoRef.value) {
     return
@@ -135,7 +141,7 @@ const handleMetaData = () => {
 }
 
 const handleControlVisibility = () => {
-  if (status.playbackSpeed) {
+  if (actionMenu.value) {
     controlVisible.value = true
     if (controlHideTimeout.value) {
       clearTimeout(controlHideTimeout.value)
@@ -146,14 +152,14 @@ const handleControlVisibility = () => {
 }
 
 const handleFullScreen = () => {
-  if (!fullScreenRef.value) {
+  if (!videoWrapperRef.value) {
     return
   }
   if (document.fullscreenElement) {
     document.exitFullscreen()
     status.fullscreen = false
   } else {
-    fullScreenRef.value.requestFullscreen()
+    videoWrapperRef.value.requestFullscreen()
     status.fullscreen = true
   }
 }
@@ -234,8 +240,11 @@ const handleMuteToggle = () => {
 provide(videoContextKey, {
   handleControlVisibility,
   handleMuteToggle,
+  hlsInstance,
+  hlsLevel,
   status,
   videoRef,
+  videoWrapperRef,
   volumeValue,
 })
 
@@ -246,16 +255,21 @@ onMounted(() => {
     return
   }
   if (Hls.isSupported()) {
-    const hlsInstance = new Hls()
-    hlsInstance.loadSource(VIDEO_URL_HLS)
-    hlsInstance.attachMedia(videoRef.value)
+    hlsInstance.value = new Hls()
+    hlsInstance.value.loadSource(VIDEO_URL_HLS)
+    hlsInstance.value.attachMedia(videoRef.value)
   } else if (videoRef.value.canPlayType('application/vnd.apple.mpegurl')) {
     videoRef.value.src = VIDEO_URL_HLS
   }
+
+  hlsInstance.value?.on(Hls.Events.MANIFEST_PARSED, (_, data) => {
+    hlsLevel.value = data.levels
+  })
 })
 
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   document.removeEventListener('keydown', handleKeyPress)
+  hlsInstance.value?.destroy()
 })
 </script>
 

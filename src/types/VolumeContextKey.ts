@@ -1,4 +1,6 @@
-import type { InjectionKey, Ref } from 'vue'
+import type { InjectionKey, Ref, ShallowRef } from 'vue'
+import type { Level } from 'hls.js'
+import type Hls from 'hls.js'
 
 export interface Status {
   buffering?: boolean
@@ -8,14 +10,18 @@ export interface Status {
   videoPlaying?: boolean
   videoReady?: boolean
   volume?: boolean
-  playbackSpeed?: boolean
+  playbackSpeedMenu?: boolean
+  qualityOptionsMenu?: boolean
 }
 
 interface videoContext {
   handleControlVisibility: () => void
   handleMuteToggle: () => void
+  hlsInstance: ShallowRef<Hls | null>
+  hlsLevel: ShallowRef<Level[]>
   status: Status
   videoRef: Ref<HTMLVideoElement | null>
+  videoWrapperRef: Ref<HTMLElement | null>
   volumeValue: Ref<number>
 }
 
