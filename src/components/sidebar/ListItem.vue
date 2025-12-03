@@ -1,6 +1,6 @@
 <template>
   <div class="list-item">
-    <div class="heading-container" @click="handleClick">
+    <div class="heading-container" @click="handleListItemCollpase">
       <div class="main-heading">
         <Icon :icon="icon" width="18" height="18" class="user-icon" />
         <p class="heading">{{ title }}</p>
@@ -21,7 +21,7 @@
       @before-leave="beforeItemLeave"
       @leave="itemLeave"
     >
-      <div class="sub-heading" v-if="isOpen">
+      <div class="sub-heading" v-if="isOpen && !isSidebarCollapsed">
         <p
           v-for="item in lists"
           :key="item.text"
@@ -36,22 +36,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
-import type { SideBarItem } from '@/types/SideBarItem'
-import { RoutePath } from '@/types/RoutePath'
 import { routeBuilder } from '@/utility/routeBuilder'
+import { useLayoutState } from '@/hooks/useLayoutState'
+import { RoutePath } from '@/types/RoutePath'
+import type { SideBarItem } from '@/types/SideBarItem'
 
 interface Props {
   item: SideBarItem
 }
 
+const { isSidebarCollapsed } = useLayoutState()
 const route = useRoute()
 const router = useRouter()
 const props = defineProps<Props>()
 const { title, lists, icon } = props.item
 const isOpen = ref(true)
+const containsCurrentRoute = computed(() => lists.some((list) => list.navigateTo === route.path))
+
+watch(
+  () => isSidebarCollapsed.value,
+  (value) => {
+    if (value) {
+      isOpen.value = false
+    } else if (containsCurrentRoute.value) {
+      isOpen.value = true
+    }
+  },
+)
 
 const handleNavigation = (navigateTo: string | undefined) => {
   if (!navigateTo) {
@@ -65,7 +79,8 @@ const handleNavigation = (navigateTo: string | undefined) => {
   router.push(navigateTo)
 }
 
-function handleClick() {
+function handleListItemCollpase() {
+  isSidebarCollapsed.value = false
   isOpen.value = !isOpen.value
 }
 
@@ -135,13 +150,13 @@ function itemLeave(el: Element) {
 
 .sub-heading {
   font-size: 13px;
-
   display: flex;
   flex-direction: column;
 }
 
 .sub-heading p {
   padding: 10px 48px;
+  min-width: max-content;
 }
 
 .sub-heading p:hover {

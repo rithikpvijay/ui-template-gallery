@@ -1,7 +1,7 @@
 <template>
   <div class="nav-container">
     <div class="icon-text">
-      <div class="nav-icon">
+      <div class="nav-icon" @click="handleSideBarCollapse">
         <Icon icon="mdi:menu" width="24" height="16" />
       </div>
       <p>UI Template Gallery</p>
@@ -38,15 +38,17 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
-import userImage from '@/assets/user-image.png'
-import BaseSearchBar from '../UI/BaseSearchBar.vue'
-import { useAuthStore } from '@/store/auth'
-import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { Icon } from '@iconify/vue'
+import { useLayoutState } from '@/hooks/useLayoutState'
+import { useAuthStore } from '@/store/auth'
+import BaseSearchBar from '../UI/BaseSearchBar.vue'
+import userImage from '@/assets/user-image.png'
 
 const authStore = useAuthStore()
 const { isLogoutLoading } = storeToRefs(authStore)
+const { isSidebarCollapsed } = useLayoutState()
 
 const handleLogout = () => {
   authStore.logout()
@@ -57,6 +59,10 @@ const logOutVisibility = computed(() => {
     'is-visible': !authStore.userSession,
   }
 })
+
+const handleSideBarCollapse = () => {
+  isSidebarCollapsed.value = !isSidebarCollapsed.value
+}
 </script>
 
 <style scoped>
@@ -150,11 +156,8 @@ const logOutVisibility = computed(() => {
 }
 
 .overlay {
-  position: fixed;
-  height: calc(100vh - 56.5px);
-  width: calc(100vw - 250px);
-  top: 56.5px;
-  left: 250px;
+  position: absolute;
+  inset: 0;
   backdrop-filter: blur(2px);
 }
 

@@ -7,19 +7,23 @@
     </div>
 
     <div class="footer">
-      <p>
-        Copyright &copy; {{ date }} <br />
-        Developer Express Inc.
-      </p>
+      <Transition name="footer">
+        <p v-if="!isSidebarCollapsed">
+          Copyright &copy; {{ date }} <br />
+          Developer Express Inc.
+        </p>
+      </Transition>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useLayoutState } from '@/hooks/useLayoutState'
+import { RoutePath } from '@/types/RoutePath'
 import type { SideBarItem } from '@/types/SideBarItem'
 import ListItem from './ListItem.vue'
-import { RoutePath } from '@/types/RoutePath'
 
+const { isSidebarCollapsed } = useLayoutState()
 const items: SideBarItem[] = [
   {
     title: 'CRM',
@@ -80,5 +84,21 @@ const date = new Date().getFullYear()
   padding: 16px 16px 3px 16px;
   font-size: 13px;
   line-height: 1.2;
+  min-width: max-content;
+}
+
+.footer-enter-from,
+.footer-leave-to {
+  opacity: 0;
+}
+
+.footer-enter-to,
+.footer-leave-from {
+  opacity: 1;
+}
+
+.footer-enter-active,
+.footer-leave-active {
+  transition: opacity 0.3s ease;
 }
 </style>
