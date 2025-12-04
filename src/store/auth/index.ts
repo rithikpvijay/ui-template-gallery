@@ -8,9 +8,19 @@ import router from '@/router'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null)
+  const userSession = ref<User | null>(null)
   const error = ref<string | null>(null)
   const isLoading = ref(false)
   const toast = useToast()
+
+  const initAuth = async () => {
+    const { data } = await supabase.auth.getUser()
+    userSession.value = data.user ?? null
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      userSession.value = session?.user ?? null
+    })
+  }
 
   const signUp = async (email: string, password: string) => {
     try {
@@ -71,9 +81,11 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   return {
+    initAuth,
     isLoading,
     logout,
     signIn,
     signUp,
+    userSession,
   }
 })

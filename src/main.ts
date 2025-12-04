@@ -6,6 +6,7 @@ import BaseIcon from './components/UI/BaseIcon.vue'
 import BaseSearchBar from './components/UI/BaseSearchBar.vue'
 import BaseMenu from './components/UI/BaseMenu.vue'
 import BaseForm from './components/UI/BaseForm.vue'
+import { useAuthStore } from './store/auth'
 import router from './router'
 import App from './App.vue'
 
@@ -34,5 +35,10 @@ app.component('base-search-bar', BaseSearchBar)
 app.component('base-menu', BaseMenu)
 
 app.component('base-form', BaseForm)
+
+const authStore = useAuthStore()
+await authStore.initAuth()
+
+app.use(router)
 
 app.mount('#app')
