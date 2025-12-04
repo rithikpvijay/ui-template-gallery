@@ -16,8 +16,6 @@ const pinia = createPinia()
 
 app.use(pinia)
 
-app.use(router)
-
 const toastConfigOptions = {
   position: 'top-center',
   timeout: 3000,
