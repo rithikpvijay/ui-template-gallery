@@ -1,11 +1,14 @@
 <template>
   <input type="checkbox" class="check-box" />
 
-  <div class="table-heading" v-for="(header, index) in tableHeaders" :key="header" ref="headerEl">
+  <div class="table-heading" v-for="(header, index) in tableHeaders" :key="header">
     <base-filter-menu
       :header="header"
-      :position="index === tableHeaders.length - 1 ? 'bottom-end' : 'bottom-start'"
-      :target="headerEl"
+      :position="
+        index === tableHeaders.length - 1
+          ? ElementPosition.BOTTOM_RIGHT
+          : ElementPosition.BOTTOM_LEFT
+      "
     >
       <template #title>
         <p class="header">{{ header }}</p>
@@ -26,15 +29,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
 import BaseFilterMenu from '@/components/UI/BaseFilterMenu.vue'
 import { toCamelCase } from '@/utility/toCamelCase'
 import { useUserStore } from '@/store/user'
 import type { User } from '@/types/User'
-
-const headerEl = ref<HTMLElement[] | null>()
+import { ElementPosition } from '@/types/ElementPosition'
 
 const tableHeaders = ['Name', 'Company', 'Status', 'Assigned to', 'Phone', 'Email']
 const { getUserDataByKey } = storeToRefs(useUserStore())

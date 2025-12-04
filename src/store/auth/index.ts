@@ -70,7 +70,7 @@ export const useAuthStore = defineStore('auth', () => {
         throw new Error('Something went wrong')
       }
       toast.success('Logged out')
-      router.replace('/sign-in')
+      router.replace(RoutePath.SIGN_IN)
     } catch (err: unknown) {
       if (err instanceof Error) {
         error.value = err.message

@@ -1,5 +1,5 @@
 <template>
-  <base-menu>
+  <base-menu :position="ElementPosition.BOTTOM_LEFT">
     <template #title>
       <div class="export-title">
         <Icon icon="mingcute:file-export-line" width="20" height="16" />
@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
+import { ElementPosition } from '@/types/ElementPosition'
 
 interface ExportItem {
   iconName: string

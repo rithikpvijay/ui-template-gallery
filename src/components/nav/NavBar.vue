@@ -20,7 +20,7 @@
       <base-menu position="bottom-right" :class="logOutVisibility">
         <template #title>
           <div class="image-container nav-item">
-            <img :src="userImage" alt="user-image" class="image" />
+            <img :src="userImage" alt="User profile" class="image" />
           </div>
         </template>
         <template #menu>
@@ -31,7 +31,7 @@
         </template>
       </base-menu>
     </div>
-    <div class="overlay" v-if="isLoading">
+    <div v-if="isLoading" class="overlay">
       <Icon icon="line-md:loading-loop" width="86" height="86" class="loading" />
     </div>
   </div>
@@ -42,8 +42,8 @@ import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Icon } from '@iconify/vue'
 import BaseSearchBar from '@/components/UI/BaseSearchBar.vue'
-import userImage from '@/assets/user-image.png'
 import { useAuthStore } from '@/store/auth'
+import userImage from '@/assets/user-image.png'
 
 const authStore = useAuthStore()
 const { isLoading } = storeToRefs(authStore)

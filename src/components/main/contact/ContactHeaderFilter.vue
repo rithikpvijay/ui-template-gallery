@@ -1,8 +1,8 @@
 <template>
-  <base-menu>
+  <base-menu :position="ElementPosition.BOTTOM_LEFT">
     <template #title>
       <div class="filter-title">
-        <p>{{ title ? title : 'ALL' }}</p>
+        <p>{{ title ?? 'ALL' }}</p>
         <Icon icon="material-symbols:arrow-drop-down" width="16" height="16" />
       </div>
     </template>
@@ -17,6 +17,7 @@
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useUserStore } from '@/store/user'
+import { ElementPosition } from '@/types/ElementPosition'
 
 const filterItems = ['All', 'Salaried', 'Commission', 'Terminated']
 const title = ref<string | null>(null)
