@@ -27,9 +27,9 @@ export const useUserStore = defineStore('user', () => {
       error.value = null
       const res = await fetch(API_USERS)
       if (!res.ok) throw new Error('Something went wrong')
-
       users.value = await res.json()
       filteredUsers.value = users.value
+      filteredUserByStatus = users.value
     } catch (err) {
       if (err instanceof Error) {
         error.value = err.message

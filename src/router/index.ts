@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useToast } from 'vue-toastification'
 import ContactDetails from '@/pages/Contact/ContactDetails.vue'
 import ContactPage from '@/pages/Contact/ContactPage.vue'
 import SignIn from '@/pages/auth/SignIn.vue'
@@ -22,14 +23,18 @@ const router = createRouter({
   ],
 })
 
+const toast = useToast()
+
 router.beforeEach((to) => {
   const authStore = useAuthStore()
 
   if (to.meta.requiresAuth && !authStore.userSession) {
+    toast.error('You must log In')
     return RoutePath.SIGN_IN
   }
 
   if (to.meta.guestOnly && authStore.userSession) {
+    toast.error('You are already signed in')
     return RoutePath.HOME
   }
 })

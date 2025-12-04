@@ -17,12 +17,17 @@
 
 <script setup lang="ts">
 import type { SideBarItem } from '@/types/SideBarItem'
+import { RoutePath } from '@/types/RoutePath'
+import { routeBuilder } from '@/utility/routeBuilder'
 import ListItem from './ListItem.vue'
 
 const items: SideBarItem[] = [
   {
     title: 'CRM',
-    lists: [{ text: 'Contact List' }, { text: 'Contact Details' }],
+    lists: [
+      { text: 'Contact List', navigateTo: RoutePath.CONTACT_LIST },
+      { text: 'Contact Details', navigateTo: routeBuilder.contactDetails(1) },
+    ],
     icon: 'mdi:user',
   },
   {
@@ -37,7 +42,11 @@ const items: SideBarItem[] = [
   },
   {
     title: 'Authentication',
-    lists: [{ text: 'Sign In Form' }, { text: 'Register Form' }, { text: 'Reset Password Form' }],
+    lists: [
+      { text: 'Sign In Form', navigateTo: RoutePath.SIGN_IN },
+      { text: 'Register Form', navigateTo: RoutePath.SIGN_UP },
+      { text: 'Reset Password Form' },
+    ],
     icon: 'mdi:user-box',
   },
   {
