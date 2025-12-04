@@ -12,7 +12,7 @@
               id="email"
               v-model="formValues.email.value"
               @focus="handleShowInvalidMessage('email')"
-              @blur="handleBlur('email')"
+              @blur="handleInputBlur('email')"
             />
             <Icon
               icon="material-symbols:error"
@@ -35,7 +35,7 @@
               id="password"
               v-model="formValues.password.value"
               @focus="handleShowInvalidMessage('password')"
-              @blur="handleBlur('password')"
+              @blur="handleInputBlur('password')"
             />
 
             <Icon
@@ -58,7 +58,7 @@
               type="password"
               v-model="formValues.confirmPassword.value"
               @focus="handleShowInvalidMessage('confirmPassword')"
-              @blur="handleBlur('confirmPassword')"
+              @blur="handleInputBlur('confirmPassword')"
             />
             <Icon
               icon="material-symbols:error"
@@ -91,7 +91,7 @@
 import { reactive, ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useAuthStore } from '@/store/auth'
-import { EMAIL_PATTERN, MIN_PASSWORD_LENGTH } from '@/types/FormValidation'
+import { EMAIL_REGEX_PATTERN, MIN_PASSWORD_LENGTH } from '@/types/FormValidation'
 import AuthProviders from './AuthProviders.vue'
 
 type Field = keyof typeof showInvalidMessage
@@ -116,7 +116,7 @@ const handleShowInvalidMessage = (field: Field) => {
   showInvalidMessage[field] = true
 }
 
-const handleBlur = (field: Field) => {
+const handleInputBlur = (field: Field) => {
   showInvalidMessage[field] = false
   formValues[field].isValid = true
 }
@@ -124,7 +124,7 @@ const handleBlur = (field: Field) => {
 const validateForm = () => {
   isFormValid.value = true
 
-  if (!EMAIL_PATTERN.test(formValues.email.value)) {
+  if (!EMAIL_REGEX_PATTERN.test(formValues.email.value)) {
     isFormValid.value = false
     formValues.email.isValid = false
   }
@@ -206,13 +206,5 @@ const handleSignUp = () => {
   border-radius: 6px;
   position: absolute;
   bottom: -20px;
-}
-
-.loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--color-blue);
 }
 </style>
